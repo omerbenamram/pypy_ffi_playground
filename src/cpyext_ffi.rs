@@ -1176,8 +1176,8 @@ pub const PY_MICRO_VERSION: u32 = 3;
 pub const PY_RELEASE_LEVEL: u32 = 15;
 pub const PY_RELEASE_SERIAL: u32 = 0;
 pub const PY_VERSION: &'static [u8; 6usize] = b"3.5.3\0";
-pub const PYPY_VERSION: &'static [u8; 14usize] = b"5.11.0-alpha0\0";
-pub const PYPY_VERSION_NUM: u32 = 84606976;
+pub const PYPY_VERSION: &'static [u8; 14usize] = b"5.10.0-alpha0\0";
+pub const PYPY_VERSION_NUM: u32 = 84541440;
 pub const PYPY_CPYEXT_GC: u32 = 1;
 pub const PY_PATCHLEVEL_REVISION: &'static [u8; 1usize] = b"\0";
 pub const PY_VERSION_HEX: u32 = 50660336;
@@ -16870,28 +16870,8 @@ fn bindgen_test_layout__heaptypeobject() {
 }
 pub type PyHeapTypeObject = _heaptypeobject;
 extern "C" {
-    #[link_name = "\u{1}_Py_IncRef"]
-    pub fn Py_IncRef(arg1: *mut PyObject);
-}
-extern "C" {
-    #[link_name = "\u{1}_Py_DecRef"]
-    pub fn Py_DecRef(arg1: *mut PyObject);
-}
-extern "C" {
-    #[link_name = "\u{1}__pypy_rawrefcount_w_marker_deallocating"]
-    pub static mut _pypy_rawrefcount_w_marker_deallocating: Py_ssize_t;
-}
-extern "C" {
-    #[link_name = "\u{1}__Py_Dealloc"]
-    pub fn _Py_Dealloc(arg1: *mut PyObject);
-}
-extern "C" {
     #[link_name = "\u{1}_PyPyType_FromSpec"]
-    pub fn PyPyType_FromSpec(arg1: *mut PyType_Spec) -> *mut PyObject;
-}
-extern "C" {
-    #[link_name = "\u{1}_PyType_GenericAlloc"]
-    pub fn PyType_GenericAlloc(arg1: *mut PyTypeObject, arg2: Py_ssize_t) -> *mut PyObject;
+    pub fn PyType_FromSpec(arg1: *mut PyType_Spec) -> *mut PyObject;
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -16925,7 +16905,7 @@ fn bindgen_test_layout__gc_head() {
 pub type PyGC_Head = _gc_head;
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_AsReadBuffer"]
-    pub fn PyPyObject_AsReadBuffer(
+    pub fn PyObject_AsReadBuffer(
         arg1: *mut PyObject,
         arg2: *mut *const ::std::os::raw::c_void,
         arg3: *mut Py_ssize_t,
@@ -16933,7 +16913,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_AsWriteBuffer"]
-    pub fn PyPyObject_AsWriteBuffer(
+    pub fn PyObject_AsWriteBuffer(
         arg1: *mut PyObject,
         arg2: *mut *mut ::std::os::raw::c_void,
         arg3: *mut Py_ssize_t,
@@ -16941,18 +16921,18 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_CheckReadBuffer"]
-    pub fn PyPyObject_CheckReadBuffer(arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyObject_CheckReadBuffer(arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBuffer_GetPointer"]
-    pub fn PyPyBuffer_GetPointer(
+    pub fn PyBuffer_GetPointer(
         view: *mut Py_buffer,
         indices: *mut Py_ssize_t,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBuffer_ToContiguous"]
-    pub fn PyPyBuffer_ToContiguous(
+    pub fn PyBuffer_ToContiguous(
         buf: *mut ::std::os::raw::c_void,
         view: *mut Py_buffer,
         len: Py_ssize_t,
@@ -16961,7 +16941,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBuffer_FromContiguous"]
-    pub fn PyPyBuffer_FromContiguous(
+    pub fn PyBuffer_FromContiguous(
         view: *mut Py_buffer,
         buf: *mut ::std::os::raw::c_void,
         len: Py_ssize_t,
@@ -16969,60 +16949,16 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[link_name = "\u{1}_PyObject_Free"]
-    pub fn PyObject_Free(arg1: *mut ::std::os::raw::c_void);
-}
-extern "C" {
-    #[link_name = "\u{1}_PyObject_GC_Del"]
-    pub fn PyObject_GC_Del(arg1: *mut ::std::os::raw::c_void);
-}
-extern "C" {
-    #[link_name = "\u{1}__PyObject_New"]
-    pub fn _PyObject_New(arg1: *mut PyTypeObject) -> *mut PyObject;
-}
-extern "C" {
-    #[link_name = "\u{1}__PyObject_NewVar"]
-    pub fn _PyObject_NewVar(arg1: *mut PyTypeObject, arg2: Py_ssize_t) -> *mut PyVarObject;
-}
-extern "C" {
-    #[link_name = "\u{1}__PyObject_GC_New"]
-    pub fn _PyObject_GC_New(arg1: *mut PyTypeObject) -> *mut PyObject;
-}
-extern "C" {
-    #[link_name = "\u{1}__PyObject_GC_NewVar"]
-    pub fn _PyObject_GC_NewVar(arg1: *mut PyTypeObject, arg2: Py_ssize_t) -> *mut PyVarObject;
-}
-extern "C" {
-    #[link_name = "\u{1}_PyObject_Init"]
-    pub fn PyObject_Init(arg1: *mut PyObject, arg2: *mut PyTypeObject) -> *mut PyObject;
-}
-extern "C" {
-    #[link_name = "\u{1}_PyObject_InitVar"]
-    pub fn PyObject_InitVar(
-        arg1: *mut PyVarObject,
-        arg2: *mut PyTypeObject,
-        arg3: Py_ssize_t,
-    ) -> *mut PyVarObject;
-}
-extern "C" {
     #[link_name = "\u{1}_PyPyObject_CallFinalizerFromDealloc"]
-    pub fn PyPyObject_CallFinalizerFromDealloc(arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyObject_CallFinalizerFromDealloc(arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyType_Register"]
-    pub fn PyPyType_Register(arg1: *mut PyTypeObject) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}__PyPy_subtype_dealloc"]
-    pub fn _PyPy_subtype_dealloc(arg1: *mut PyObject);
-}
-extern "C" {
-    #[link_name = "\u{1}__PyPy_object_dealloc"]
-    pub fn _PyPy_object_dealloc(arg1: *mut PyObject);
+    pub fn PyType_Register(arg1: *mut PyTypeObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_GetBuffer"]
-    pub fn PyPyObject_GetBuffer(
+    pub fn PyObject_GetBuffer(
         obj: *mut PyObject,
         view: *mut Py_buffer,
         flags: ::std::os::raw::c_int,
@@ -17030,7 +16966,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBuffer_Release"]
-    pub fn PyPyBuffer_Release(view: *mut Py_buffer);
+    pub fn PyBuffer_Release(view: *mut Py_buffer);
 }
 pub type clock_t = __darwin_clock_t;
 #[repr(C)]
@@ -18109,7 +18045,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_WarnFormat"]
-    pub fn PyPyErr_WarnFormat(
+    pub fn PyErr_WarnFormat(
         category: *mut PyObject,
         stack_level: Py_ssize_t,
         format: *const ::std::os::raw::c_char,
@@ -19338,11 +19274,11 @@ fn bindgen_test_layout_PyComplexObject() {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyComplex_AsCComplex"]
-    pub fn PyPyComplex_AsCComplex(obj: *mut PyObject) -> Py_complex;
+    pub fn PyComplex_AsCComplex(obj: *mut PyObject) -> Py_complex;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyComplex_FromCComplex"]
-    pub fn PyPyComplex_FromCComplex(c: Py_complex) -> *mut PyObject;
+    pub fn PyComplex_FromCComplex(c: Py_complex) -> *mut PyObject;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -19407,7 +19343,7 @@ fn bindgen_test_layout_PyFunctionObject() {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFunction_Type"]
-    pub static mut PyPyFunction_Type: PyTypeObject;
+    pub static mut PyFunction_Type: PyTypeObject;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -19815,11 +19751,11 @@ fn bindgen_test_layout_PyModuleObject() {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModuleDef_Init"]
-    pub fn PyPyModuleDef_Init(arg1: *mut PyModuleDef) -> *mut PyObject;
+    pub fn PyModuleDef_Init(arg1: *mut PyModuleDef) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyArg_Parse"]
-    pub fn PyPyArg_Parse(
+    pub fn PyArg_Parse(
         arg1: *mut PyObject,
         arg2: *const ::std::os::raw::c_char,
         ...
@@ -19827,7 +19763,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyArg_ParseTuple"]
-    pub fn PyPyArg_ParseTuple(
+    pub fn PyArg_ParseTuple(
         arg1: *mut PyObject,
         arg2: *const ::std::os::raw::c_char,
         ...
@@ -19835,7 +19771,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyArg_VaParse"]
-    pub fn PyPyArg_VaParse(
+    pub fn PyArg_VaParse(
         arg1: *mut PyObject,
         arg2: *const ::std::os::raw::c_char,
         arg3: *mut __va_list_tag,
@@ -19843,7 +19779,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyArg_ParseTupleAndKeywords"]
-    pub fn PyPyArg_ParseTupleAndKeywords(
+    pub fn PyArg_ParseTupleAndKeywords(
         arg1: *mut PyObject,
         arg2: *mut PyObject,
         arg3: *const ::std::os::raw::c_char,
@@ -19853,7 +19789,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyArg_VaParseTupleAndKeywords"]
-    pub fn PyPyArg_VaParseTupleAndKeywords(
+    pub fn PyArg_VaParseTupleAndKeywords(
         arg1: *mut PyObject,
         arg2: *mut PyObject,
         arg3: *const ::std::os::raw::c_char,
@@ -19863,7 +19799,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyArg_Parse_SizeT"]
-    pub fn _PyPyArg_Parse_SizeT(
+    pub fn _PyArg_Parse_SizeT(
         arg1: *mut PyObject,
         arg2: *const ::std::os::raw::c_char,
         ...
@@ -19871,7 +19807,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyArg_ParseTuple_SizeT"]
-    pub fn _PyPyArg_ParseTuple_SizeT(
+    pub fn _PyArg_ParseTuple_SizeT(
         arg1: *mut PyObject,
         arg2: *const ::std::os::raw::c_char,
         ...
@@ -19879,7 +19815,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyArg_VaParse_SizeT"]
-    pub fn _PyPyArg_VaParse_SizeT(
+    pub fn _PyArg_VaParse_SizeT(
         arg1: *mut PyObject,
         arg2: *const ::std::os::raw::c_char,
         arg3: *mut __va_list_tag,
@@ -19887,7 +19823,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyArg_ParseTupleAndKeywords_SizeT"]
-    pub fn _PyPyArg_ParseTupleAndKeywords_SizeT(
+    pub fn _PyArg_ParseTupleAndKeywords_SizeT(
         arg1: *mut PyObject,
         arg2: *mut PyObject,
         arg3: *const ::std::os::raw::c_char,
@@ -19897,7 +19833,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyArg_VaParseTupleAndKeywords_SizeT"]
-    pub fn _PyPyArg_VaParseTupleAndKeywords_SizeT(
+    pub fn _PyArg_VaParseTupleAndKeywords_SizeT(
         arg1: *mut PyObject,
         arg2: *mut PyObject,
         arg3: *const ::std::os::raw::c_char,
@@ -19912,7 +19848,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_AddObject"]
-    pub fn PyPyModule_AddObject(
+    pub fn PyModule_AddObject(
         m: *mut PyObject,
         name: *const ::std::os::raw::c_char,
         o: *mut PyObject,
@@ -19920,7 +19856,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_AddIntConstant"]
-    pub fn PyPyModule_AddIntConstant(
+    pub fn PyModule_AddIntConstant(
         m: *mut PyObject,
         name: *const ::std::os::raw::c_char,
         value: ::std::os::raw::c_long,
@@ -19928,7 +19864,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_AddStringConstant"]
-    pub fn PyPyModule_AddStringConstant(
+    pub fn PyModule_AddStringConstant(
         m: *mut PyObject,
         name: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_char,
@@ -19936,44 +19872,44 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_GetDef"]
-    pub fn PyPyModule_GetDef(arg1: *mut PyObject) -> *mut PyModuleDef;
+    pub fn PyModule_GetDef(arg1: *mut PyObject) -> *mut PyModuleDef;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_GetState"]
-    pub fn PyPyModule_GetState(arg1: *mut PyObject) -> *mut ::std::os::raw::c_void;
+    pub fn PyModule_GetState(arg1: *mut PyObject) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_BuildValue"]
-    pub fn PyPy_BuildValue(arg1: *const ::std::os::raw::c_char, ...) -> *mut PyObject;
+    pub fn Py_BuildValue(arg1: *const ::std::os::raw::c_char, ...) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_VaBuildValue"]
-    pub fn PyPy_VaBuildValue(
+    pub fn Py_VaBuildValue(
         arg1: *const ::std::os::raw::c_char,
         arg2: *mut __va_list_tag,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_BuildValue_SizeT"]
-    pub fn _PyPy_BuildValue_SizeT(arg1: *const ::std::os::raw::c_char, ...) -> *mut PyObject;
+    pub fn _Py_BuildValue_SizeT(arg1: *const ::std::os::raw::c_char, ...) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_VaBuildValue_SizeT"]
-    pub fn _PyPy_VaBuildValue_SizeT(
+    pub fn _Py_VaBuildValue_SizeT(
         arg1: *const ::std::os::raw::c_char,
         arg2: *mut __va_list_tag,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyArg_NoKeywords"]
-    pub fn _PyPyArg_NoKeywords(
+    pub fn _PyArg_NoKeywords(
         funcname: *const ::std::os::raw::c_char,
         kw: *mut PyObject,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyArg_UnpackTuple"]
-    pub fn PyPyArg_UnpackTuple(
+    pub fn PyArg_UnpackTuple(
         args: *mut PyObject,
         name: *const ::std::os::raw::c_char,
         min: Py_ssize_t,
@@ -19983,19 +19919,19 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_PackageContext"]
-    pub static mut _PyPy_PackageContext: *mut ::std::os::raw::c_char;
+    pub static mut _Py_PackageContext: *mut ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_FatalError"]
-    pub fn PyPy_FatalError(msg: *const ::std::os::raw::c_char);
+    pub fn Py_FatalError(msg: *const ::std::os::raw::c_char);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_DebugFlag"]
-    pub static mut PyPy_DebugFlag: ::std::os::raw::c_int;
+    pub static mut Py_DebugFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_VerboseFlag"]
-    pub static mut PyPy_VerboseFlag: ::std::os::raw::c_int;
+    pub static mut Py_VerboseFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_Py_QuietFlag"]
@@ -20003,47 +19939,47 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_InteractiveFlag"]
-    pub static mut PyPy_InteractiveFlag: ::std::os::raw::c_int;
+    pub static mut Py_InteractiveFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_InspectFlag"]
-    pub static mut PyPy_InspectFlag: ::std::os::raw::c_int;
+    pub static mut Py_InspectFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_OptimizeFlag"]
-    pub static mut PyPy_OptimizeFlag: ::std::os::raw::c_int;
+    pub static mut Py_OptimizeFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_NoSiteFlag"]
-    pub static mut PyPy_NoSiteFlag: ::std::os::raw::c_int;
+    pub static mut Py_NoSiteFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_BytesWarningFlag"]
-    pub static mut PyPy_BytesWarningFlag: ::std::os::raw::c_int;
+    pub static mut Py_BytesWarningFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UseClassExceptionsFlag"]
-    pub static mut PyPy_UseClassExceptionsFlag: ::std::os::raw::c_int;
+    pub static mut Py_UseClassExceptionsFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_FrozenFlag"]
-    pub static mut PyPy_FrozenFlag: ::std::os::raw::c_int;
+    pub static mut Py_FrozenFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_IgnoreEnvironmentFlag"]
-    pub static mut PyPy_IgnoreEnvironmentFlag: ::std::os::raw::c_int;
+    pub static mut Py_IgnoreEnvironmentFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_DivisionWarningFlag"]
-    pub static mut PyPy_DivisionWarningFlag: ::std::os::raw::c_int;
+    pub static mut Py_DivisionWarningFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_DontWriteBytecodeFlag"]
-    pub static mut PyPy_DontWriteBytecodeFlag: ::std::os::raw::c_int;
+    pub static mut Py_DontWriteBytecodeFlag: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_NoUserSiteDirectory"]
-    pub static mut PyPy_NoUserSiteDirectory: ::std::os::raw::c_int;
+    pub static mut Py_NoUserSiteDirectory: ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_Py_UnbufferedStdioFlag"]
@@ -20051,7 +19987,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_HashRandomizationFlag"]
-    pub static mut PyPy_HashRandomizationFlag: ::std::os::raw::c_int;
+    pub static mut Py_HashRandomizationFlag: ::std::os::raw::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -20083,7 +20019,7 @@ fn bindgen_test_layout_PyCompilerFlags() {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_NewException"]
-    pub fn PyPyErr_NewException(
+    pub fn PyErr_NewException(
         name: *const ::std::os::raw::c_char,
         base: *mut PyObject,
         dict: *mut PyObject,
@@ -20091,7 +20027,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_NewExceptionWithDoc"]
-    pub fn PyPyErr_NewExceptionWithDoc(
+    pub fn PyErr_NewExceptionWithDoc(
         name: *const ::std::os::raw::c_char,
         doc: *const ::std::os::raw::c_char,
         base: *mut PyObject,
@@ -20100,7 +20036,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_Format"]
-    pub fn PyPyErr_Format(
+    pub fn PyErr_Format(
         exception: *mut PyObject,
         format: *const ::std::os::raw::c_char,
         ...
@@ -20108,7 +20044,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyOS_snprintf"]
-    pub fn PyPyOS_snprintf(
+    pub fn PyOS_snprintf(
         str: *mut ::std::os::raw::c_char,
         size: usize,
         format: *const ::std::os::raw::c_char,
@@ -20117,7 +20053,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyOS_vsnprintf"]
-    pub fn PyPyOS_vsnprintf(
+    pub fn PyOS_vsnprintf(
         str: *mut ::std::os::raw::c_char,
         size: usize,
         format: *const ::std::os::raw::c_char,
@@ -20189,11 +20125,11 @@ fn bindgen_test_layout_PyStopIterationObject() {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySys_WriteStdout"]
-    pub fn PyPySys_WriteStdout(format: *const ::std::os::raw::c_char, ...);
+    pub fn PySys_WriteStdout(format: *const ::std::os::raw::c_char, ...);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySys_WriteStderr"]
-    pub fn PyPySys_WriteStderr(format: *const ::std::os::raw::c_char, ...);
+    pub fn PySys_WriteStderr(format: *const ::std::os::raw::c_char, ...);
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -20579,16 +20515,8 @@ fn bindgen_test_layout_PyTupleObject() {
     );
 }
 extern "C" {
-    #[link_name = "\u{1}_PyTuple_New"]
-    pub fn PyTuple_New(size: Py_ssize_t) -> *mut PyObject;
-}
-extern "C" {
-    #[link_name = "\u{1}__PyPy_tuple_dealloc"]
-    pub fn _PyPy_tuple_dealloc(arg1: *mut PyObject);
-}
-extern "C" {
     #[link_name = "\u{1}_PyPyTuple_Pack"]
-    pub fn PyPyTuple_Pack(arg1: Py_ssize_t, ...) -> *mut PyObject;
+    pub fn PyTuple_Pack(arg1: Py_ssize_t, ...) -> *mut PyObject;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -20650,392 +20578,6 @@ fn bindgen_test_layout_PyDictObject() {
             stringify!(_tmpkeys)
         )
     );
-}
-pub type mbstate_t = __darwin_mbstate_t;
-pub type wctype_t = __darwin_wctype_t;
-extern "C" {
-    #[link_name = "\u{1}_wctype"]
-    pub fn wctype(arg1: *const ::std::os::raw::c_char) -> wctype_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_btowc"]
-    pub fn btowc(arg1: ::std::os::raw::c_int) -> wint_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_fgetwc"]
-    pub fn fgetwc(arg1: *mut FILE) -> wint_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_fgetws"]
-    pub fn fgetws(arg1: *mut wchar_t, arg2: ::std::os::raw::c_int, arg3: *mut FILE)
-        -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_fputwc"]
-    pub fn fputwc(arg1: wchar_t, arg2: *mut FILE) -> wint_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_fputws"]
-    pub fn fputws(arg1: *const wchar_t, arg2: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_fwide"]
-    pub fn fwide(arg1: *mut FILE, arg2: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_fwprintf"]
-    pub fn fwprintf(arg1: *mut FILE, arg2: *const wchar_t, ...) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_fwscanf"]
-    pub fn fwscanf(arg1: *mut FILE, arg2: *const wchar_t, ...) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_getwc"]
-    pub fn getwc(arg1: *mut FILE) -> wint_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_getwchar"]
-    pub fn getwchar() -> wint_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_mbrlen"]
-    pub fn mbrlen(arg1: *const ::std::os::raw::c_char, arg2: usize, arg3: *mut mbstate_t) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_mbrtowc"]
-    pub fn mbrtowc(
-        arg1: *mut wchar_t,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: usize,
-        arg4: *mut mbstate_t,
-    ) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_mbsinit"]
-    pub fn mbsinit(arg1: *const mbstate_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_mbsrtowcs"]
-    pub fn mbsrtowcs(
-        arg1: *mut wchar_t,
-        arg2: *mut *const ::std::os::raw::c_char,
-        arg3: usize,
-        arg4: *mut mbstate_t,
-    ) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_putwc"]
-    pub fn putwc(arg1: wchar_t, arg2: *mut FILE) -> wint_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_putwchar"]
-    pub fn putwchar(arg1: wchar_t) -> wint_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_swprintf"]
-    pub fn swprintf(
-        arg1: *mut wchar_t,
-        arg2: usize,
-        arg3: *const wchar_t,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_swscanf"]
-    pub fn swscanf(arg1: *const wchar_t, arg2: *const wchar_t, ...) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_ungetwc"]
-    pub fn ungetwc(arg1: wint_t, arg2: *mut FILE) -> wint_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_vfwprintf"]
-    pub fn vfwprintf(
-        arg1: *mut FILE,
-        arg2: *const wchar_t,
-        arg3: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_vswprintf"]
-    pub fn vswprintf(
-        arg1: *mut wchar_t,
-        arg2: usize,
-        arg3: *const wchar_t,
-        arg4: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_vwprintf"]
-    pub fn vwprintf(arg1: *const wchar_t, arg2: *mut __va_list_tag) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcrtomb"]
-    pub fn wcrtomb(arg1: *mut ::std::os::raw::c_char, arg2: wchar_t, arg3: *mut mbstate_t)
-        -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcscat"]
-    pub fn wcscat(arg1: *mut wchar_t, arg2: *const wchar_t) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcschr"]
-    pub fn wcschr(arg1: *const wchar_t, arg2: wchar_t) -> *mut ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcscmp"]
-    pub fn wcscmp(arg1: *const wchar_t, arg2: *const wchar_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcscoll"]
-    pub fn wcscoll(arg1: *const wchar_t, arg2: *const wchar_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcscpy"]
-    pub fn wcscpy(arg1: *mut wchar_t, arg2: *const wchar_t) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcscspn"]
-    pub fn wcscspn(arg1: *const wchar_t, arg2: *const wchar_t) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsftime"]
-    pub fn wcsftime(
-        arg1: *mut wchar_t,
-        arg2: usize,
-        arg3: *const wchar_t,
-        arg4: *const tm,
-    ) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcslen"]
-    pub fn wcslen(arg1: *const wchar_t) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsncat"]
-    pub fn wcsncat(arg1: *mut wchar_t, arg2: *const wchar_t, arg3: usize) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsncmp"]
-    pub fn wcsncmp(
-        arg1: *const wchar_t,
-        arg2: *const wchar_t,
-        arg3: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsncpy"]
-    pub fn wcsncpy(arg1: *mut wchar_t, arg2: *const wchar_t, arg3: usize) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcspbrk"]
-    pub fn wcspbrk(arg1: *const wchar_t, arg2: *const wchar_t) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsrchr"]
-    pub fn wcsrchr(arg1: *const wchar_t, arg2: wchar_t) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsrtombs"]
-    pub fn wcsrtombs(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *mut *const wchar_t,
-        arg3: usize,
-        arg4: *mut mbstate_t,
-    ) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsspn"]
-    pub fn wcsspn(arg1: *const wchar_t, arg2: *const wchar_t) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsstr"]
-    pub fn wcsstr(arg1: *const wchar_t, arg2: *const wchar_t) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsxfrm"]
-    pub fn wcsxfrm(arg1: *mut wchar_t, arg2: *const wchar_t, arg3: usize) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wctob"]
-    pub fn wctob(arg1: wint_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcstod"]
-    pub fn wcstod(arg1: *const wchar_t, arg2: *mut *mut wchar_t) -> f64;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcstok"]
-    pub fn wcstok(
-        arg1: *mut wchar_t,
-        arg2: *const wchar_t,
-        arg3: *mut *mut wchar_t,
-    ) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcstol"]
-    pub fn wcstol(
-        arg1: *const wchar_t,
-        arg2: *mut *mut wchar_t,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcstoul"]
-    pub fn wcstoul(
-        arg1: *const wchar_t,
-        arg2: *mut *mut wchar_t,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    #[link_name = "\u{1}_wmemchr"]
-    pub fn wmemchr(arg1: *const wchar_t, arg2: wchar_t, arg3: usize) -> *mut ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wmemcmp"]
-    pub fn wmemcmp(
-        arg1: *const wchar_t,
-        arg2: *const wchar_t,
-        arg3: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wmemcpy"]
-    pub fn wmemcpy(arg1: *mut wchar_t, arg2: *const wchar_t, arg3: usize) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wmemmove"]
-    pub fn wmemmove(arg1: *mut wchar_t, arg2: *const wchar_t, arg3: usize) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wmemset"]
-    pub fn wmemset(arg1: *mut wchar_t, arg2: wchar_t, arg3: usize) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wprintf"]
-    pub fn wprintf(arg1: *const wchar_t, ...) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wscanf"]
-    pub fn wscanf(arg1: *const wchar_t, ...) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcswidth"]
-    pub fn wcswidth(arg1: *const wchar_t, arg2: usize) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcwidth"]
-    pub fn wcwidth(arg1: wchar_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_vfwscanf"]
-    pub fn vfwscanf(
-        arg1: *mut FILE,
-        arg2: *const wchar_t,
-        arg3: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_vswscanf"]
-    pub fn vswscanf(
-        arg1: *const wchar_t,
-        arg2: *const wchar_t,
-        arg3: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_vwscanf"]
-    pub fn vwscanf(arg1: *const wchar_t, arg2: *mut __va_list_tag) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcstof"]
-    pub fn wcstof(arg1: *const wchar_t, arg2: *mut *mut wchar_t) -> f32;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcstold"]
-    pub fn wcstold(arg1: *const wchar_t, arg2: *mut *mut wchar_t) -> f64;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcstoll"]
-    pub fn wcstoll(
-        arg1: *const wchar_t,
-        arg2: *mut *mut wchar_t,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcstoull"]
-    pub fn wcstoull(
-        arg1: *const wchar_t,
-        arg2: *mut *mut wchar_t,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulonglong;
-}
-extern "C" {
-    #[link_name = "\u{1}_mbsnrtowcs"]
-    pub fn mbsnrtowcs(
-        arg1: *mut wchar_t,
-        arg2: *mut *const ::std::os::raw::c_char,
-        arg3: usize,
-        arg4: usize,
-        arg5: *mut mbstate_t,
-    ) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcpcpy"]
-    pub fn wcpcpy(arg1: *mut wchar_t, arg2: *const wchar_t) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcpncpy"]
-    pub fn wcpncpy(arg1: *mut wchar_t, arg2: *const wchar_t, arg3: usize) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsdup"]
-    pub fn wcsdup(arg1: *const wchar_t) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcscasecmp"]
-    pub fn wcscasecmp(arg1: *const wchar_t, arg2: *const wchar_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsncasecmp"]
-    pub fn wcsncasecmp(
-        arg1: *const wchar_t,
-        arg2: *const wchar_t,
-        n: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsnlen"]
-    pub fn wcsnlen(arg1: *const wchar_t, arg2: usize) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcsnrtombs"]
-    pub fn wcsnrtombs(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *mut *const wchar_t,
-        arg3: usize,
-        arg4: usize,
-        arg5: *mut mbstate_t,
-    ) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_open_wmemstream"]
-    pub fn open_wmemstream(__bufp: *mut *mut wchar_t, __sizep: *mut usize) -> *mut FILE;
-}
-extern "C" {
-    #[link_name = "\u{1}_fgetwln"]
-    pub fn fgetwln(arg1: *mut FILE, arg2: *mut usize) -> *mut wchar_t;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcslcat"]
-    pub fn wcslcat(arg1: *mut wchar_t, arg2: *const wchar_t, arg3: usize) -> usize;
-}
-extern "C" {
-    #[link_name = "\u{1}_wcslcpy"]
-    pub fn wcslcpy(arg1: *mut wchar_t, arg2: *const wchar_t, arg3: usize) -> usize;
 }
 pub type Py_UNICODE = wchar_t;
 pub type Py_UCS4 = ::std::os::raw::c_uint;
@@ -21307,30 +20849,26 @@ pub const PyUnicode_Kind_PyUnicode_4BYTE_KIND: PyUnicode_Kind = 4;
 pub type PyUnicode_Kind = u32;
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_GetLength"]
-    pub fn PyPyUnicode_GetLength(unicode: *mut PyObject) -> Py_ssize_t;
+    pub fn PyUnicode_GetLength(unicode: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_GetSize"]
-    pub fn PyPyUnicode_GetSize(unicode: *mut PyObject) -> Py_ssize_t;
+    pub fn PyUnicode_GetSize(unicode: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromFormatV"]
-    pub fn PyPyUnicode_FromFormatV(
+    pub fn PyUnicode_FromFormatV(
         format: *const ::std::os::raw::c_char,
         vargs: *mut __va_list_tag,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromFormat"]
-    pub fn PyPyUnicode_FromFormat(format: *const ::std::os::raw::c_char, ...) -> *mut PyObject;
-}
-extern "C" {
-    #[link_name = "\u{1}_PyUnicode_FromWideChar"]
-    pub fn PyUnicode_FromWideChar(w: *const wchar_t, size: Py_ssize_t) -> *mut PyObject;
+    pub fn PyUnicode_FromFormat(format: *const ::std::os::raw::c_char, ...) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsWideCharString"]
-    pub fn PyPyUnicode_AsWideCharString(
+    pub fn PyUnicode_AsWideCharString(
         unicode: *mut PyObject,
         size: *mut Py_ssize_t,
     ) -> *mut wchar_t;
@@ -21500,7 +21038,7 @@ fn bindgen_test_layout_PyMemoryViewObject() {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_CallFunction"]
-    pub fn PyPyEval_CallFunction(
+    pub fn PyEval_CallFunction(
         obj: *mut PyObject,
         format: *const ::std::os::raw::c_char,
         ...
@@ -21508,7 +21046,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_CallMethod"]
-    pub fn PyPyEval_CallMethod(
+    pub fn PyEval_CallMethod(
         obj: *mut PyObject,
         name: *const ::std::os::raw::c_char,
         format: *const ::std::os::raw::c_char,
@@ -21517,7 +21055,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_CallFunction"]
-    pub fn PyPyObject_CallFunction(
+    pub fn PyObject_CallFunction(
         obj: *mut PyObject,
         format: *const ::std::os::raw::c_char,
         ...
@@ -21525,7 +21063,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_CallMethod"]
-    pub fn PyPyObject_CallMethod(
+    pub fn PyObject_CallMethod(
         obj: *mut PyObject,
         name: *const ::std::os::raw::c_char,
         format: *const ::std::os::raw::c_char,
@@ -21534,7 +21072,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyObject_CallFunction_SizeT"]
-    pub fn _PyPyObject_CallFunction_SizeT(
+    pub fn _PyObject_CallFunction_SizeT(
         obj: *mut PyObject,
         format: *const ::std::os::raw::c_char,
         ...
@@ -21542,7 +21080,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyObject_CallMethod_SizeT"]
-    pub fn _PyPyObject_CallMethod_SizeT(
+    pub fn _PyObject_CallMethod_SizeT(
         obj: *mut PyObject,
         name: *const ::std::os::raw::c_char,
         format: *const ::std::os::raw::c_char,
@@ -21551,11 +21089,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_CallFunctionObjArgs"]
-    pub fn PyPyObject_CallFunctionObjArgs(callable: *mut PyObject, ...) -> *mut PyObject;
+    pub fn PyObject_CallFunctionObjArgs(callable: *mut PyObject, ...) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_CallMethodObjArgs"]
-    pub fn PyPyObject_CallMethodObjArgs(
+    pub fn PyObject_CallMethodObjArgs(
         callable: *mut PyObject,
         name: *mut PyObject,
         ...
@@ -21563,46 +21101,46 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMem_RawMalloc"]
-    pub fn PyPyMem_RawMalloc(size: usize) -> *mut ::std::os::raw::c_void;
+    pub fn PyMem_RawMalloc(size: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMem_RawCalloc"]
-    pub fn PyPyMem_RawCalloc(nelem: usize, elsize: usize) -> *mut ::std::os::raw::c_void;
+    pub fn PyMem_RawCalloc(nelem: usize, elsize: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMem_RawRealloc"]
-    pub fn PyPyMem_RawRealloc(
+    pub fn PyMem_RawRealloc(
         ptr: *mut ::std::os::raw::c_void,
         new_size: usize,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMem_RawFree"]
-    pub fn PyPyMem_RawFree(ptr: *mut ::std::os::raw::c_void);
+    pub fn PyMem_RawFree(ptr: *mut ::std::os::raw::c_void);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMem_Malloc"]
-    pub fn PyPyMem_Malloc(size: usize) -> *mut ::std::os::raw::c_void;
+    pub fn PyMem_Malloc(size: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMem_Calloc"]
-    pub fn PyPyMem_Calloc(nelem: usize, elsize: usize) -> *mut ::std::os::raw::c_void;
+    pub fn PyMem_Calloc(nelem: usize, elsize: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMem_Realloc"]
-    pub fn PyPyMem_Realloc(
+    pub fn PyMem_Realloc(
         ptr: *mut ::std::os::raw::c_void,
         new_size: usize,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMem_Free"]
-    pub fn PyPyMem_Free(ptr: *mut ::std::os::raw::c_void);
+    pub fn PyMem_Free(ptr: *mut ::std::os::raw::c_void);
 }
 pub type _PyTraceMalloc_domain_t = ::std::os::raw::c_uint;
 extern "C" {
     #[link_name = "\u{1}__PyPyTraceMalloc_Track"]
-    pub fn _PyPyTraceMalloc_Track(
+    pub fn _PyTraceMalloc_Track(
         domain: _PyTraceMalloc_domain_t,
         ptr: usize,
         size: usize,
@@ -21610,25 +21148,25 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyTraceMalloc_Untrack"]
-    pub fn _PyPyTraceMalloc_Untrack(
+    pub fn _PyTraceMalloc_Untrack(
         domain: _PyTraceMalloc_domain_t,
         ptr: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCObject_Type"]
-    pub static mut PyPyCObject_Type: PyTypeObject;
+    pub static mut PyCObject_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCObject_FromVoidPtr"]
-    pub fn PyPyCObject_FromVoidPtr(
+    pub fn PyCObject_FromVoidPtr(
         cobj: *mut ::std::os::raw::c_void,
         destruct: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCObject_FromVoidPtrAndDesc"]
-    pub fn PyPyCObject_FromVoidPtrAndDesc(
+    pub fn PyCObject_FromVoidPtrAndDesc(
         cobj: *mut ::std::os::raw::c_void,
         desc: *mut ::std::os::raw::c_void,
         destruct: ::std::option::Option<
@@ -21641,22 +21179,22 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCObject_AsVoidPtr"]
-    pub fn PyPyCObject_AsVoidPtr(arg1: *mut PyObject) -> *mut ::std::os::raw::c_void;
+    pub fn PyCObject_AsVoidPtr(arg1: *mut PyObject) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCObject_GetDesc"]
-    pub fn PyPyCObject_GetDesc(arg1: *mut PyObject) -> *mut ::std::os::raw::c_void;
+    pub fn PyCObject_GetDesc(arg1: *mut PyObject) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCObject_Import"]
-    pub fn PyPyCObject_Import(
+    pub fn PyCObject_Import(
         module_name: *const ::std::os::raw::c_char,
         cobject_name: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCObject_SetVoidPtr"]
-    pub fn PyPyCObject_SetVoidPtr(
+    pub fn PyCObject_SetVoidPtr(
         self_: *mut PyObject,
         cobj: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
@@ -21746,16 +21284,16 @@ fn bindgen_test_layout_PyCObject() {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_get_cobject_type"]
-    pub fn _PyPy_get_cobject_type() -> *mut PyTypeObject;
+    pub fn _Py_get_cobject_type() -> *mut PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_Type"]
-    pub static mut PyPyCapsule_Type: PyTypeObject;
+    pub static mut PyCapsule_Type: PyTypeObject;
 }
 pub type PyCapsule_Destructor = ::std::option::Option<unsafe extern "C" fn(arg1: *mut PyObject)>;
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_New"]
-    pub fn PyPyCapsule_New(
+    pub fn PyCapsule_New(
         pointer: *mut ::std::os::raw::c_void,
         name: *const ::std::os::raw::c_char,
         destructor: PyCapsule_Destructor,
@@ -21763,68 +21301,68 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_GetPointer"]
-    pub fn PyPyCapsule_GetPointer(
+    pub fn PyCapsule_GetPointer(
         capsule: *mut PyObject,
         name: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_GetDestructor"]
-    pub fn PyPyCapsule_GetDestructor(capsule: *mut PyObject) -> PyCapsule_Destructor;
+    pub fn PyCapsule_GetDestructor(capsule: *mut PyObject) -> PyCapsule_Destructor;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_GetName"]
-    pub fn PyPyCapsule_GetName(capsule: *mut PyObject) -> *const ::std::os::raw::c_char;
+    pub fn PyCapsule_GetName(capsule: *mut PyObject) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_GetContext"]
-    pub fn PyPyCapsule_GetContext(capsule: *mut PyObject) -> *mut ::std::os::raw::c_void;
+    pub fn PyCapsule_GetContext(capsule: *mut PyObject) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_IsValid"]
-    pub fn PyPyCapsule_IsValid(
+    pub fn PyCapsule_IsValid(
         capsule: *mut PyObject,
         name: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_SetPointer"]
-    pub fn PyPyCapsule_SetPointer(
+    pub fn PyCapsule_SetPointer(
         capsule: *mut PyObject,
         pointer: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_SetDestructor"]
-    pub fn PyPyCapsule_SetDestructor(
+    pub fn PyCapsule_SetDestructor(
         capsule: *mut PyObject,
         destructor: PyCapsule_Destructor,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_SetName"]
-    pub fn PyPyCapsule_SetName(
+    pub fn PyCapsule_SetName(
         capsule: *mut PyObject,
         name: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_SetContext"]
-    pub fn PyPyCapsule_SetContext(
+    pub fn PyCapsule_SetContext(
         capsule: *mut PyObject,
         context: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCapsule_Import"]
-    pub fn PyPyCapsule_Import(
+    pub fn PyCapsule_Import(
         name: *const ::std::os::raw::c_char,
         no_block: ::std::os::raw::c_int,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_get_capsule_type"]
-    pub fn _PyPy_get_capsule_type() -> *mut PyTypeObject;
+    pub fn _Py_get_capsule_type() -> *mut PyTypeObject;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -21922,14 +21460,14 @@ fn bindgen_test_layout_PyBytesObject() {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_FromFormatV"]
-    pub fn PyPyBytes_FromFormatV(
+    pub fn PyBytes_FromFormatV(
         arg1: *const ::std::os::raw::c_char,
         arg2: *mut __va_list_tag,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_FromFormat"]
-    pub fn PyPyBytes_FromFormat(arg1: *const ::std::os::raw::c_char, ...) -> *mut PyObject;
+    pub fn PyBytes_FromFormat(arg1: *const ::std::os::raw::c_char, ...) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__Py_EllipsisObject"]
@@ -22234,21 +21772,22 @@ fn bindgen_test_layout_PyDateTime_CAPI() {
         )
     );
 }
+extern "C" {
+    #[link_name = "\u{1}_PyDateTimeAPI"]
+    pub static mut PyDateTimeAPI: *mut PyDateTime_CAPI;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct PyDateTime_Delta {
     pub ob_refcnt: Py_ssize_t,
     pub ob_pypy_link: Py_ssize_t,
     pub ob_type: *mut _typeobject,
-    pub days: ::std::os::raw::c_int,
-    pub seconds: ::std::os::raw::c_int,
-    pub microseconds: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_PyDateTime_Delta() {
     assert_eq!(
         ::std::mem::size_of::<PyDateTime_Delta>(),
-        40usize,
+        24usize,
         concat!("Size of: ", stringify!(PyDateTime_Delta))
     );
     assert_eq!(
@@ -22284,182 +21823,6 @@ fn bindgen_test_layout_PyDateTime_Delta() {
             stringify!(PyDateTime_Delta),
             "::",
             stringify!(ob_type)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_Delta>())).days as *const _ as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_Delta),
-            "::",
-            stringify!(days)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_Delta>())).seconds as *const _ as usize },
-        28usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_Delta),
-            "::",
-            stringify!(seconds)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_Delta>())).microseconds as *const _ as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_Delta),
-            "::",
-            stringify!(microseconds)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct PyDateTime_Time {
-    pub ob_refcnt: Py_ssize_t,
-    pub ob_pypy_link: Py_ssize_t,
-    pub ob_type: *mut _typeobject,
-    pub hastzinfo: ::std::os::raw::c_uchar,
-    pub tzinfo: *mut PyObject,
-}
-#[test]
-fn bindgen_test_layout_PyDateTime_Time() {
-    assert_eq!(
-        ::std::mem::size_of::<PyDateTime_Time>(),
-        40usize,
-        concat!("Size of: ", stringify!(PyDateTime_Time))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<PyDateTime_Time>(),
-        8usize,
-        concat!("Alignment of ", stringify!(PyDateTime_Time))
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_Time>())).ob_refcnt as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_Time),
-            "::",
-            stringify!(ob_refcnt)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_Time>())).ob_pypy_link as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_Time),
-            "::",
-            stringify!(ob_pypy_link)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_Time>())).ob_type as *const _ as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_Time),
-            "::",
-            stringify!(ob_type)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_Time>())).hastzinfo as *const _ as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_Time),
-            "::",
-            stringify!(hastzinfo)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_Time>())).tzinfo as *const _ as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_Time),
-            "::",
-            stringify!(tzinfo)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct PyDateTime_DateTime {
-    pub ob_refcnt: Py_ssize_t,
-    pub ob_pypy_link: Py_ssize_t,
-    pub ob_type: *mut _typeobject,
-    pub hastzinfo: ::std::os::raw::c_uchar,
-    pub tzinfo: *mut PyObject,
-}
-#[test]
-fn bindgen_test_layout_PyDateTime_DateTime() {
-    assert_eq!(
-        ::std::mem::size_of::<PyDateTime_DateTime>(),
-        40usize,
-        concat!("Size of: ", stringify!(PyDateTime_DateTime))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<PyDateTime_DateTime>(),
-        8usize,
-        concat!("Alignment of ", stringify!(PyDateTime_DateTime))
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_DateTime>())).ob_refcnt as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_DateTime),
-            "::",
-            stringify!(ob_refcnt)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<PyDateTime_DateTime>())).ob_pypy_link as *const _ as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_DateTime),
-            "::",
-            stringify!(ob_pypy_link)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_DateTime>())).ob_type as *const _ as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_DateTime),
-            "::",
-            stringify!(ob_type)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_DateTime>())).hastzinfo as *const _ as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_DateTime),
-            "::",
-            stringify!(hastzinfo)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<PyDateTime_DateTime>())).tzinfo as *const _ as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PyDateTime_DateTime),
-            "::",
-            stringify!(tzinfo)
         )
     );
 }
@@ -22515,6 +21878,108 @@ fn bindgen_test_layout_PyDateTime_Date() {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct PyDateTime_Time {
+    pub ob_refcnt: Py_ssize_t,
+    pub ob_pypy_link: Py_ssize_t,
+    pub ob_type: *mut _typeobject,
+}
+#[test]
+fn bindgen_test_layout_PyDateTime_Time() {
+    assert_eq!(
+        ::std::mem::size_of::<PyDateTime_Time>(),
+        24usize,
+        concat!("Size of: ", stringify!(PyDateTime_Time))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<PyDateTime_Time>(),
+        8usize,
+        concat!("Alignment of ", stringify!(PyDateTime_Time))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<PyDateTime_Time>())).ob_refcnt as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyDateTime_Time),
+            "::",
+            stringify!(ob_refcnt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<PyDateTime_Time>())).ob_pypy_link as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyDateTime_Time),
+            "::",
+            stringify!(ob_pypy_link)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<PyDateTime_Time>())).ob_type as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyDateTime_Time),
+            "::",
+            stringify!(ob_type)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct PyDateTime_DateTime {
+    pub ob_refcnt: Py_ssize_t,
+    pub ob_pypy_link: Py_ssize_t,
+    pub ob_type: *mut _typeobject,
+}
+#[test]
+fn bindgen_test_layout_PyDateTime_DateTime() {
+    assert_eq!(
+        ::std::mem::size_of::<PyDateTime_DateTime>(),
+        24usize,
+        concat!("Size of: ", stringify!(PyDateTime_DateTime))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<PyDateTime_DateTime>(),
+        8usize,
+        concat!("Alignment of ", stringify!(PyDateTime_DateTime))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<PyDateTime_DateTime>())).ob_refcnt as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyDateTime_DateTime),
+            "::",
+            stringify!(ob_refcnt)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<PyDateTime_DateTime>())).ob_pypy_link as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyDateTime_DateTime),
+            "::",
+            stringify!(ob_pypy_link)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<PyDateTime_DateTime>())).ob_type as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PyDateTime_DateTime),
+            "::",
+            stringify!(ob_type)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct PyDateTime_TZInfo {
     pub ob_refcnt: Py_ssize_t,
     pub ob_pypy_link: Py_ssize_t,
@@ -22562,10 +22027,6 @@ fn bindgen_test_layout_PyDateTime_TZInfo() {
             stringify!(ob_type)
         )
     );
-}
-extern "C" {
-    #[link_name = "\u{1}_PyDateTimeAPI"]
-    pub static mut PyDateTimeAPI: *mut PyDateTime_CAPI;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -22636,78 +22097,78 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_setfilesystemdefaultencoding"]
-    pub fn _PyPy_setfilesystemdefaultencoding(arg1: *const ::std::os::raw::c_char);
+    pub fn _Py_setfilesystemdefaultencoding(arg1: *const ::std::os::raw::c_char);
 }
 pub type PyOS_sighandler_t =
     ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
 extern "C" {
     #[link_name = "\u{1}_PyPyOS_setsig"]
-    pub fn PyPyOS_setsig(
+    pub fn PyOS_setsig(
         sig: ::std::os::raw::c_int,
         handler: PyOS_sighandler_t,
     ) -> PyOS_sighandler_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyOS_getsig"]
-    pub fn PyPyOS_getsig(sig: ::std::os::raw::c_int) -> PyOS_sighandler_t;
+    pub fn PyOS_getsig(sig: ::std::os::raw::c_int) -> PyOS_sighandler_t;
 }
 pub type PyThread_type_lock = *mut ::std::os::raw::c_void;
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_get_thread_ident"]
-    pub fn PyPyThread_get_thread_ident() -> ::std::os::raw::c_long;
+    pub fn PyThread_get_thread_ident() -> ::std::os::raw::c_long;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_allocate_lock"]
-    pub fn PyPyThread_allocate_lock() -> PyThread_type_lock;
+    pub fn PyThread_allocate_lock() -> PyThread_type_lock;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_free_lock"]
-    pub fn PyPyThread_free_lock(arg1: PyThread_type_lock);
+    pub fn PyThread_free_lock(arg1: PyThread_type_lock);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_acquire_lock"]
-    pub fn PyPyThread_acquire_lock(
+    pub fn PyThread_acquire_lock(
         arg1: PyThread_type_lock,
         arg2: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_release_lock"]
-    pub fn PyPyThread_release_lock(arg1: PyThread_type_lock);
+    pub fn PyThread_release_lock(arg1: PyThread_type_lock);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_start_new_thread"]
-    pub fn PyPyThread_start_new_thread(
+    pub fn PyThread_start_new_thread(
         func: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
         arg: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_long;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_create_key"]
-    pub fn PyPyThread_create_key() -> ::std::os::raw::c_int;
+    pub fn PyThread_create_key() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_delete_key"]
-    pub fn PyPyThread_delete_key(arg1: ::std::os::raw::c_int);
+    pub fn PyThread_delete_key(arg1: ::std::os::raw::c_int);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_set_key_value"]
-    pub fn PyPyThread_set_key_value(
+    pub fn PyThread_set_key_value(
         arg1: ::std::os::raw::c_int,
         arg2: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_get_key_value"]
-    pub fn PyPyThread_get_key_value(arg1: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_void;
+    pub fn PyThread_get_key_value(arg1: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_delete_key_value"]
-    pub fn PyPyThread_delete_key_value(key: ::std::os::raw::c_int);
+    pub fn PyThread_delete_key_value(key: ::std::os::raw::c_int);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_ReInitTLS"]
-    pub fn PyPyThread_ReInitTLS();
+    pub fn PyThread_ReInitTLS();
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -22806,19 +22267,19 @@ fn bindgen_test_layout__traceback() {
 pub type PyTracebackObject = _traceback;
 extern "C" {
     #[link_name = "\u{1}__PyPy_RestoreSignals"]
-    pub fn _PyPy_RestoreSignals();
+    pub fn _Py_RestoreSignals();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethod_Type"]
-    pub static mut PyPyMethod_Type: PyTypeObject;
+    pub static mut PyMethod_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyRange_Type"]
-    pub static mut PyPyRange_Type: PyTypeObject;
+    pub static mut PyRange_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTraceBack_Type"]
-    pub static mut PyPyTraceBack_Type: PyTypeObject;
+    pub static mut PyTraceBack_Type: PyTypeObject;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -23024,7 +22485,7 @@ fn bindgen_test_layout_PyBaseExceptionObject() {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySlice_GetIndicesEx"]
-    pub fn PyPySlice_GetIndicesEx(
+    pub fn PySlice_GetIndicesEx(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: *mut Py_ssize_t,
@@ -23035,27 +22496,27 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyAnySet_Check"]
-    pub fn PyPyAnySet_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyAnySet_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyAnySet_CheckExact"]
-    pub fn PyPyAnySet_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyAnySet_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBool_Check"]
-    pub fn PyPyBool_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyBool_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBool_CheckExact"]
-    pub fn PyPyBool_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyBool_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBool_FromLong"]
-    pub fn PyPyBool_FromLong(arg0: Py_ssize_t) -> *mut PyObject;
+    pub fn PyBool_FromLong(arg0: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBuffer_FillInfo"]
-    pub fn PyPyBuffer_FillInfo(
+    pub fn PyBuffer_FillInfo(
         arg0: *mut Py_buffer,
         arg1: *mut PyObject,
         arg2: *mut ::std::os::raw::c_void,
@@ -23066,57 +22527,57 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBuffer_IsContiguous"]
-    pub fn PyPyBuffer_IsContiguous(
+    pub fn PyBuffer_IsContiguous(
         arg0: *mut Py_buffer,
         arg1: ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_AsString"]
-    pub fn PyPyByteArray_AsString(arg0: *mut PyObject) -> *mut ::std::os::raw::c_char;
+    pub fn PyByteArray_AsString(arg0: *mut PyObject) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_Check"]
-    pub fn PyPyByteArray_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyByteArray_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_CheckExact"]
-    pub fn PyPyByteArray_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyByteArray_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_Concat"]
-    pub fn PyPyByteArray_Concat(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyByteArray_Concat(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_FromObject"]
-    pub fn PyPyByteArray_FromObject(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyByteArray_FromObject(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_FromStringAndSize"]
-    pub fn PyPyByteArray_FromStringAndSize(
+    pub fn PyByteArray_FromStringAndSize(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_Resize"]
-    pub fn PyPyByteArray_Resize(arg0: *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
+    pub fn PyByteArray_Resize(arg0: *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_Size"]
-    pub fn PyPyByteArray_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyByteArray_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_AS_STRING"]
-    pub fn PyPyBytes_AS_STRING(arg0: *mut ::std::os::raw::c_void) -> *mut ::std::os::raw::c_char;
+    pub fn PyBytes_AS_STRING(arg0: *mut ::std::os::raw::c_void) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_AsString"]
-    pub fn PyPyBytes_AsString(arg0: *mut PyObject) -> *mut ::std::os::raw::c_char;
+    pub fn PyBytes_AsString(arg0: *mut PyObject) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_AsStringAndSize"]
-    pub fn PyPyBytes_AsStringAndSize(
+    pub fn PyBytes_AsStringAndSize(
         arg0: *mut PyObject,
         arg1: *mut *mut ::std::os::raw::c_char,
         arg2: *mut Py_ssize_t,
@@ -23124,42 +22585,42 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_Concat"]
-    pub fn PyPyBytes_Concat(arg0: *mut *mut PyObject, arg1: *mut PyObject);
+    pub fn PyBytes_Concat(arg0: *mut *mut PyObject, arg1: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_ConcatAndDel"]
-    pub fn PyPyBytes_ConcatAndDel(arg0: *mut *mut PyObject, arg1: *mut PyObject);
+    pub fn PyBytes_ConcatAndDel(arg0: *mut *mut PyObject, arg1: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_FromObject"]
-    pub fn PyPyBytes_FromObject(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyBytes_FromObject(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_FromString"]
-    pub fn PyPyBytes_FromString(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PyBytes_FromString(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_FromStringAndSize"]
-    pub fn PyPyBytes_FromStringAndSize(
+    pub fn PyBytes_FromStringAndSize(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_Size"]
-    pub fn PyPyBytes_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyBytes_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCFunction_Check"]
-    pub fn PyPyCFunction_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyCFunction_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCFunction_GetFunction"]
-    pub fn PyPyCFunction_GetFunction(arg0: *mut PyObject) -> PyCFunction;
+    pub fn PyCFunction_GetFunction(arg0: *mut PyObject) -> PyCFunction;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCFunction_NewEx"]
-    pub fn PyPyCFunction_NewEx(
+    pub fn PyCFunction_NewEx(
         arg0: *mut PyMethodDef,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -23167,31 +22628,31 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCallIter_New"]
-    pub fn PyPyCallIter_New(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyCallIter_New(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCallable_Check"]
-    pub fn PyPyCallable_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyCallable_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyClassMethod_New"]
-    pub fn PyPyClassMethod_New(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyClassMethod_New(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCode_Check"]
-    pub fn PyPyCode_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyCode_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCode_CheckExact"]
-    pub fn PyPyCode_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyCode_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCode_GetNumFree"]
-    pub fn PyPyCode_GetNumFree(arg0: *mut PyCodeObject) -> Py_ssize_t;
+    pub fn PyCode_GetNumFree(arg0: *mut PyCodeObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCode_New"]
-    pub fn PyPyCode_New(
+    pub fn PyCode_New(
         arg0: ::std::os::raw::c_int,
         arg1: ::std::os::raw::c_int,
         arg2: ::std::os::raw::c_int,
@@ -23211,7 +22672,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCode_NewEmpty"]
-    pub fn PyPyCode_NewEmpty(
+    pub fn PyCode_NewEmpty(
         arg0: *const ::std::os::raw::c_char,
         arg1: *const ::std::os::raw::c_char,
         arg2: ::std::os::raw::c_int,
@@ -23219,210 +22680,210 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCodec_IncrementalDecoder"]
-    pub fn PyPyCodec_IncrementalDecoder(
+    pub fn PyCodec_IncrementalDecoder(
         arg0: *const ::std::os::raw::c_char,
         arg1: *const ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCodec_IncrementalEncoder"]
-    pub fn PyPyCodec_IncrementalEncoder(
+    pub fn PyCodec_IncrementalEncoder(
         arg0: *const ::std::os::raw::c_char,
         arg1: *const ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyComplex_Check"]
-    pub fn PyPyComplex_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyComplex_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyComplex_CheckExact"]
-    pub fn PyPyComplex_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyComplex_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyComplex_FromDoubles"]
-    pub fn PyPyComplex_FromDoubles(arg0: f64, arg1: f64) -> *mut PyObject;
+    pub fn PyComplex_FromDoubles(arg0: f64, arg1: f64) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyComplex_ImagAsDouble"]
-    pub fn PyPyComplex_ImagAsDouble(arg0: *mut PyObject) -> f64;
+    pub fn PyComplex_ImagAsDouble(arg0: *mut PyObject) -> f64;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyComplex_RealAsDouble"]
-    pub fn PyPyComplex_RealAsDouble(arg0: *mut PyObject) -> f64;
+    pub fn PyComplex_RealAsDouble(arg0: *mut PyObject) -> f64;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCoro_Check"]
-    pub fn PyPyCoro_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyCoro_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCoro_CheckExact"]
-    pub fn PyPyCoro_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyCoro_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_Check"]
-    pub fn PyPyDateTime_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDateTime_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_CheckExact"]
-    pub fn PyPyDateTime_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDateTime_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_DATE_GET_HOUR"]
-    pub fn PyPyDateTime_DATE_GET_HOUR(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyDateTime_DATE_GET_HOUR(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_DATE_GET_MICROSECOND"]
-    pub fn PyPyDateTime_DATE_GET_MICROSECOND(
+    pub fn PyDateTime_DATE_GET_MICROSECOND(
         arg0: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_DATE_GET_MINUTE"]
-    pub fn PyPyDateTime_DATE_GET_MINUTE(arg0: *mut ::std::os::raw::c_void)
+    pub fn PyDateTime_DATE_GET_MINUTE(arg0: *mut ::std::os::raw::c_void)
         -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_DATE_GET_SECOND"]
-    pub fn PyPyDateTime_DATE_GET_SECOND(arg0: *mut ::std::os::raw::c_void)
+    pub fn PyDateTime_DATE_GET_SECOND(arg0: *mut ::std::os::raw::c_void)
         -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_DELTA_GET_DAYS"]
-    pub fn PyPyDateTime_DELTA_GET_DAYS(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyDateTime_DELTA_GET_DAYS(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_DELTA_GET_MICROSECONDS"]
-    pub fn PyPyDateTime_DELTA_GET_MICROSECONDS(
+    pub fn PyDateTime_DELTA_GET_MICROSECONDS(
         arg0: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_DELTA_GET_SECONDS"]
-    pub fn PyPyDateTime_DELTA_GET_SECONDS(
+    pub fn PyDateTime_DELTA_GET_SECONDS(
         arg0: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_FromTimestamp"]
-    pub fn PyPyDateTime_FromTimestamp(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyDateTime_FromTimestamp(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_GET_DAY"]
-    pub fn PyPyDateTime_GET_DAY(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyDateTime_GET_DAY(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_GET_MONTH"]
-    pub fn PyPyDateTime_GET_MONTH(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyDateTime_GET_MONTH(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_GET_YEAR"]
-    pub fn PyPyDateTime_GET_YEAR(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyDateTime_GET_YEAR(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_TIME_GET_HOUR"]
-    pub fn PyPyDateTime_TIME_GET_HOUR(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyDateTime_TIME_GET_HOUR(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_TIME_GET_MICROSECOND"]
-    pub fn PyPyDateTime_TIME_GET_MICROSECOND(
+    pub fn PyDateTime_TIME_GET_MICROSECOND(
         arg0: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_TIME_GET_MINUTE"]
-    pub fn PyPyDateTime_TIME_GET_MINUTE(arg0: *mut ::std::os::raw::c_void)
+    pub fn PyDateTime_TIME_GET_MINUTE(arg0: *mut ::std::os::raw::c_void)
         -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDateTime_TIME_GET_SECOND"]
-    pub fn PyPyDateTime_TIME_GET_SECOND(arg0: *mut ::std::os::raw::c_void)
+    pub fn PyDateTime_TIME_GET_SECOND(arg0: *mut ::std::os::raw::c_void)
         -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDate_Check"]
-    pub fn PyPyDate_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDate_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDate_CheckExact"]
-    pub fn PyPyDate_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDate_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDate_FromTimestamp"]
-    pub fn PyPyDate_FromTimestamp(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyDate_FromTimestamp(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDelta_Check"]
-    pub fn PyPyDelta_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDelta_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDelta_CheckExact"]
-    pub fn PyPyDelta_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDelta_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDescr_NewClassMethod"]
-    pub fn PyPyDescr_NewClassMethod(
+    pub fn PyDescr_NewClassMethod(
         arg0: *mut PyTypeObject,
         arg1: *mut PyMethodDef,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDictProxy_Check"]
-    pub fn PyPyDictProxy_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyDictProxy_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDictProxy_CheckExact"]
-    pub fn PyPyDictProxy_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyDictProxy_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDictProxy_New"]
-    pub fn PyPyDictProxy_New(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyDictProxy_New(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Clear"]
-    pub fn PyPyDict_Clear(arg0: *mut PyObject);
+    pub fn PyDict_Clear(arg0: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Contains"]
-    pub fn PyPyDict_Contains(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDict_Contains(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Copy"]
-    pub fn PyPyDict_Copy(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyDict_Copy(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_DelItem"]
-    pub fn PyPyDict_DelItem(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDict_DelItem(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_DelItemString"]
-    pub fn PyPyDict_DelItemString(
+    pub fn PyDict_DelItemString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_GetItem"]
-    pub fn PyPyDict_GetItem(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyDict_GetItem(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_GetItemString"]
-    pub fn PyPyDict_GetItemString(
+    pub fn PyDict_GetItemString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Items"]
-    pub fn PyPyDict_Items(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyDict_Items(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Keys"]
-    pub fn PyPyDict_Keys(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyDict_Keys(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Merge"]
-    pub fn PyPyDict_Merge(
+    pub fn PyDict_Merge(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: ::std::os::raw::c_int,
@@ -23430,11 +22891,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_New"]
-    pub fn PyPyDict_New() -> *mut PyObject;
+    pub fn PyDict_New() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Next"]
-    pub fn PyPyDict_Next(
+    pub fn PyDict_Next(
         arg0: *mut PyObject,
         arg1: *mut Py_ssize_t,
         arg2: *mut *mut PyObject,
@@ -23443,7 +22904,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_SetDefault"]
-    pub fn PyPyDict_SetDefault(
+    pub fn PyDict_SetDefault(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -23451,7 +22912,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_SetItem"]
-    pub fn PyPyDict_SetItem(
+    pub fn PyDict_SetItem(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -23459,7 +22920,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_SetItemString"]
-    pub fn PyPyDict_SetItemString(
+    pub fn PyDict_SetItemString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
         arg2: *mut PyObject,
@@ -23467,43 +22928,43 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Size"]
-    pub fn PyPyDict_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyDict_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Update"]
-    pub fn PyPyDict_Update(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyDict_Update(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Values"]
-    pub fn PyPyDict_Values(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyDict_Values(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_BadArgument"]
-    pub fn PyPyErr_BadArgument() -> ::std::os::raw::c_int;
+    pub fn PyErr_BadArgument() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_BadInternalCall"]
-    pub fn PyPyErr_BadInternalCall();
+    pub fn PyErr_BadInternalCall();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_CheckSignals"]
-    pub fn PyPyErr_CheckSignals() -> ::std::os::raw::c_int;
+    pub fn PyErr_CheckSignals() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_Clear"]
-    pub fn PyPyErr_Clear();
+    pub fn PyErr_Clear();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_Display"]
-    pub fn PyPyErr_Display(arg0: *mut PyObject, arg1: *mut PyObject, arg2: *mut PyObject);
+    pub fn PyErr_Display(arg0: *mut PyObject, arg1: *mut PyObject, arg2: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_ExceptionMatches"]
-    pub fn PyPyErr_ExceptionMatches(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyErr_ExceptionMatches(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_Fetch"]
-    pub fn PyPyErr_Fetch(
+    pub fn PyErr_Fetch(
         arg0: *mut *mut PyObject,
         arg1: *mut *mut PyObject,
         arg2: *mut *mut PyObject,
@@ -23511,7 +22972,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_GetExcInfo"]
-    pub fn PyPyErr_GetExcInfo(
+    pub fn PyErr_GetExcInfo(
         arg0: *mut *mut PyObject,
         arg1: *mut *mut PyObject,
         arg2: *mut *mut PyObject,
@@ -23519,18 +22980,18 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_GivenExceptionMatches"]
-    pub fn PyPyErr_GivenExceptionMatches(
+    pub fn PyErr_GivenExceptionMatches(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_NoMemory"]
-    pub fn PyPyErr_NoMemory() -> *mut PyObject;
+    pub fn PyErr_NoMemory() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_NormalizeException"]
-    pub fn PyPyErr_NormalizeException(
+    pub fn PyErr_NormalizeException(
         arg0: *mut *mut PyObject,
         arg1: *mut *mut PyObject,
         arg2: *mut *mut PyObject,
@@ -23538,68 +22999,68 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_Occurred"]
-    pub fn PyPyErr_Occurred() -> *mut PyObject;
+    pub fn PyErr_Occurred() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_Print"]
-    pub fn PyPyErr_Print();
+    pub fn PyErr_Print();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_PrintEx"]
-    pub fn PyPyErr_PrintEx(arg0: ::std::os::raw::c_int);
+    pub fn PyErr_PrintEx(arg0: ::std::os::raw::c_int);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_Restore"]
-    pub fn PyPyErr_Restore(arg0: *mut PyObject, arg1: *mut PyObject, arg2: *mut PyObject);
+    pub fn PyErr_Restore(arg0: *mut PyObject, arg1: *mut PyObject, arg2: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_SetExcInfo"]
-    pub fn PyPyErr_SetExcInfo(arg0: *mut PyObject, arg1: *mut PyObject, arg2: *mut PyObject);
+    pub fn PyErr_SetExcInfo(arg0: *mut PyObject, arg1: *mut PyObject, arg2: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_SetFromErrno"]
-    pub fn PyPyErr_SetFromErrno(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyErr_SetFromErrno(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_SetFromErrnoWithFilename"]
-    pub fn PyPyErr_SetFromErrnoWithFilename(
+    pub fn PyErr_SetFromErrnoWithFilename(
         arg0: *mut PyObject,
         arg1: *mut ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_SetFromErrnoWithFilenameObject"]
-    pub fn PyPyErr_SetFromErrnoWithFilenameObject(
+    pub fn PyErr_SetFromErrnoWithFilenameObject(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_SetInterrupt"]
-    pub fn PyPyErr_SetInterrupt();
+    pub fn PyErr_SetInterrupt();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_SetNone"]
-    pub fn PyPyErr_SetNone(arg0: *mut PyObject);
+    pub fn PyErr_SetNone(arg0: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_SetObject"]
-    pub fn PyPyErr_SetObject(arg0: *mut PyObject, arg1: *mut PyObject);
+    pub fn PyErr_SetObject(arg0: *mut PyObject, arg1: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_SetString"]
-    pub fn PyPyErr_SetString(arg0: *mut PyObject, arg1: *const ::std::os::raw::c_char);
+    pub fn PyErr_SetString(arg0: *mut PyObject, arg1: *const ::std::os::raw::c_char);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_Warn"]
-    pub fn PyPyErr_Warn(
+    pub fn PyErr_Warn(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_WarnEx"]
-    pub fn PyPyErr_WarnEx(
+    pub fn PyErr_WarnEx(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
         arg2: ::std::os::raw::c_int,
@@ -23607,15 +23068,15 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyErr_WriteUnraisable"]
-    pub fn PyPyErr_WriteUnraisable(arg0: *mut PyObject);
+    pub fn PyErr_WriteUnraisable(arg0: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_AcquireThread"]
-    pub fn PyPyEval_AcquireThread(arg0: *mut PyThreadState);
+    pub fn PyEval_AcquireThread(arg0: *mut PyThreadState);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_CallObjectWithKeywords"]
-    pub fn PyPyEval_CallObjectWithKeywords(
+    pub fn PyEval_CallObjectWithKeywords(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -23623,7 +23084,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_EvalCode"]
-    pub fn PyPyEval_EvalCode(
+    pub fn PyEval_EvalCode(
         arg0: *mut PyCodeObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -23631,74 +23092,74 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_GetBuiltins"]
-    pub fn PyPyEval_GetBuiltins() -> *mut PyObject;
+    pub fn PyEval_GetBuiltins() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_GetGlobals"]
-    pub fn PyPyEval_GetGlobals() -> *mut PyObject;
+    pub fn PyEval_GetGlobals() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_GetLocals"]
-    pub fn PyPyEval_GetLocals() -> *mut PyObject;
+    pub fn PyEval_GetLocals() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_InitThreads"]
-    pub fn PyPyEval_InitThreads();
+    pub fn PyEval_InitThreads();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_MergeCompilerFlags"]
-    pub fn PyPyEval_MergeCompilerFlags(arg0: *mut PyCompilerFlags) -> ::std::os::raw::c_int;
+    pub fn PyEval_MergeCompilerFlags(arg0: *mut PyCompilerFlags) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_ReleaseThread"]
-    pub fn PyPyEval_ReleaseThread(arg0: *mut PyThreadState);
+    pub fn PyEval_ReleaseThread(arg0: *mut PyThreadState);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_RestoreThread"]
-    pub fn PyPyEval_RestoreThread(arg0: *mut PyThreadState);
+    pub fn PyEval_RestoreThread(arg0: *mut PyThreadState);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_SaveThread"]
-    pub fn PyPyEval_SaveThread() -> *mut PyThreadState;
+    pub fn PyEval_SaveThread() -> *mut PyThreadState;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyEval_ThreadsInitialized"]
-    pub fn PyPyEval_ThreadsInitialized() -> ::std::os::raw::c_int;
+    pub fn PyEval_ThreadsInitialized() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExceptionInstance_Class"]
-    pub fn PyPyExceptionInstance_Class(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyExceptionInstance_Class(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyException_GetCause"]
-    pub fn PyPyException_GetCause(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyException_GetCause(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyException_GetContext"]
-    pub fn PyPyException_GetContext(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyException_GetContext(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyException_GetTraceback"]
-    pub fn PyPyException_GetTraceback(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyException_GetTraceback(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyException_SetCause"]
-    pub fn PyPyException_SetCause(arg0: *mut PyObject, arg1: *mut PyObject);
+    pub fn PyException_SetCause(arg0: *mut PyObject, arg1: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyException_SetContext"]
-    pub fn PyPyException_SetContext(arg0: *mut PyObject, arg1: *mut PyObject);
+    pub fn PyException_SetContext(arg0: *mut PyObject, arg1: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyException_SetTraceback"]
-    pub fn PyPyException_SetTraceback(
+    pub fn PyException_SetTraceback(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFile_FromFile"]
-    pub fn PyPyFile_FromFile(
+    pub fn PyFile_FromFile(
         arg0: *mut FILE,
         arg1: *const ::std::os::raw::c_char,
         arg2: *const ::std::os::raw::c_char,
@@ -23707,26 +23168,26 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFile_FromString"]
-    pub fn PyPyFile_FromString(
+    pub fn PyFile_FromString(
         arg0: *const ::std::os::raw::c_char,
         arg1: *const ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFile_GetLine"]
-    pub fn PyPyFile_GetLine(arg0: *mut PyObject, arg1: ::std::os::raw::c_int) -> *mut PyObject;
+    pub fn PyFile_GetLine(arg0: *mut PyObject, arg1: ::std::os::raw::c_int) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFile_Name"]
-    pub fn PyPyFile_Name(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyFile_Name(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFile_SetBufSize"]
-    pub fn PyPyFile_SetBufSize(arg0: *mut PyObject, arg1: ::std::os::raw::c_int);
+    pub fn PyFile_SetBufSize(arg0: *mut PyObject, arg1: ::std::os::raw::c_int);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFile_WriteObject"]
-    pub fn PyPyFile_WriteObject(
+    pub fn PyFile_WriteObject(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: ::std::os::raw::c_int,
@@ -23734,38 +23195,38 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFile_WriteString"]
-    pub fn PyPyFile_WriteString(
+    pub fn PyFile_WriteString(
         arg0: *const ::std::os::raw::c_char,
         arg1: *mut PyObject,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFloat_AS_DOUBLE"]
-    pub fn PyPyFloat_AS_DOUBLE(arg0: *mut ::std::os::raw::c_void) -> f64;
+    pub fn PyFloat_AS_DOUBLE(arg0: *mut ::std::os::raw::c_void) -> f64;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFloat_AsDouble"]
-    pub fn PyPyFloat_AsDouble(arg0: *mut PyObject) -> f64;
+    pub fn PyFloat_AsDouble(arg0: *mut PyObject) -> f64;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFloat_Check"]
-    pub fn PyPyFloat_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyFloat_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFloat_CheckExact"]
-    pub fn PyPyFloat_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyFloat_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFloat_FromDouble"]
-    pub fn PyPyFloat_FromDouble(arg0: f64) -> *mut PyObject;
+    pub fn PyFloat_FromDouble(arg0: f64) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFloat_FromString"]
-    pub fn PyPyFloat_FromString(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyFloat_FromString(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFrame_New"]
-    pub fn PyPyFrame_New(
+    pub fn PyFrame_New(
         arg0: *mut PyThreadState,
         arg1: *mut PyCodeObject,
         arg2: *mut PyObject,
@@ -23774,58 +23235,58 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFrozenSet_Check"]
-    pub fn PyPyFrozenSet_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyFrozenSet_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFrozenSet_CheckExact"]
-    pub fn PyPyFrozenSet_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyFrozenSet_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFrozenSet_New"]
-    pub fn PyPyFrozenSet_New(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyFrozenSet_New(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFunction_Check"]
-    pub fn PyPyFunction_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyFunction_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFunction_CheckExact"]
-    pub fn PyPyFunction_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyFunction_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFunction_GetCode"]
-    pub fn PyPyFunction_GetCode(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyFunction_GetCode(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyGILState_Ensure"]
-    pub fn PyPyGILState_Ensure() -> ::std::os::raw::c_int;
+    pub fn PyGILState_Ensure() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyGILState_Release"]
-    pub fn PyPyGILState_Release(arg0: ::std::os::raw::c_int);
+    pub fn PyGILState_Release(arg0: ::std::os::raw::c_int);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyGen_Check"]
-    pub fn PyPyGen_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyGen_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyGen_CheckExact"]
-    pub fn PyPyGen_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyGen_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_AddModule"]
-    pub fn PyPyImport_AddModule(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PyImport_AddModule(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_ExecCodeModule"]
-    pub fn PyPyImport_ExecCodeModule(
+    pub fn PyImport_ExecCodeModule(
         arg0: *mut ::std::os::raw::c_char,
         arg1: *mut PyObject,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_ExecCodeModuleEx"]
-    pub fn PyPyImport_ExecCodeModuleEx(
+    pub fn PyImport_ExecCodeModuleEx(
         arg0: *mut ::std::os::raw::c_char,
         arg1: *mut PyObject,
         arg2: *mut ::std::os::raw::c_char,
@@ -23833,19 +23294,19 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_GetModuleDict"]
-    pub fn PyPyImport_GetModuleDict() -> *mut PyObject;
+    pub fn PyImport_GetModuleDict() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_Import"]
-    pub fn PyPyImport_Import(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyImport_Import(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_ImportModule"]
-    pub fn PyPyImport_ImportModule(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PyImport_ImportModule(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_ImportModuleLevelObject"]
-    pub fn PyPyImport_ImportModuleLevelObject(
+    pub fn PyImport_ImportModuleLevelObject(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -23855,71 +23316,71 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_ImportModuleNoBlock"]
-    pub fn PyPyImport_ImportModuleNoBlock(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PyImport_ImportModuleNoBlock(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyImport_ReloadModule"]
-    pub fn PyPyImport_ReloadModule(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyImport_ReloadModule(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyIndex_Check"]
-    pub fn PyPyIndex_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyIndex_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyInstanceMethod_Check"]
-    pub fn PyPyInstanceMethod_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyInstanceMethod_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyInstanceMethod_Function"]
-    pub fn PyPyInstanceMethod_Function(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyInstanceMethod_Function(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyInstanceMethod_GET_FUNCTION"]
-    pub fn PyPyInstanceMethod_GET_FUNCTION(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyInstanceMethod_GET_FUNCTION(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyInstanceMethod_New"]
-    pub fn PyPyInstanceMethod_New(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyInstanceMethod_New(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyInterpreterState_Head"]
-    pub fn PyPyInterpreterState_Head() -> *mut PyInterpreterState;
+    pub fn PyInterpreterState_Head() -> *mut PyInterpreterState;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyInterpreterState_Next"]
-    pub fn PyPyInterpreterState_Next(arg0: *mut PyInterpreterState) -> *mut PyInterpreterState;
+    pub fn PyInterpreterState_Next(arg0: *mut PyInterpreterState) -> *mut PyInterpreterState;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyIter_Check"]
-    pub fn PyPyIter_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyIter_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyIter_Next"]
-    pub fn PyPyIter_Next(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyIter_Next(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_Append"]
-    pub fn PyPyList_Append(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyList_Append(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_AsTuple"]
-    pub fn PyPyList_AsTuple(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyList_AsTuple(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_GET_ITEM"]
-    pub fn PyPyList_GET_ITEM(arg0: *mut ::std::os::raw::c_void, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PyList_GET_ITEM(arg0: *mut ::std::os::raw::c_void, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_GET_SIZE"]
-    pub fn PyPyList_GET_SIZE(arg0: *mut ::std::os::raw::c_void) -> Py_ssize_t;
+    pub fn PyList_GET_SIZE(arg0: *mut ::std::os::raw::c_void) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_GetItem"]
-    pub fn PyPyList_GetItem(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PyList_GetItem(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_GetSlice"]
-    pub fn PyPyList_GetSlice(
+    pub fn PyList_GetSlice(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: Py_ssize_t,
@@ -23927,7 +23388,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_Insert"]
-    pub fn PyPyList_Insert(
+    pub fn PyList_Insert(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: *mut PyObject,
@@ -23935,15 +23396,15 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_New"]
-    pub fn PyPyList_New(arg0: Py_ssize_t) -> *mut PyObject;
+    pub fn PyList_New(arg0: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_Reverse"]
-    pub fn PyPyList_Reverse(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyList_Reverse(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_SET_ITEM"]
-    pub fn PyPyList_SET_ITEM(
+    pub fn PyList_SET_ITEM(
         arg0: *mut ::std::os::raw::c_void,
         arg1: Py_ssize_t,
         arg2: *mut PyObject,
@@ -23951,7 +23412,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_SetItem"]
-    pub fn PyPyList_SetItem(
+    pub fn PyList_SetItem(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: *mut PyObject,
@@ -23959,7 +23420,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_SetSlice"]
-    pub fn PyPyList_SetSlice(
+    pub fn PyList_SetSlice(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: Py_ssize_t,
@@ -23968,89 +23429,89 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_Size"]
-    pub fn PyPyList_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyList_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_Sort"]
-    pub fn PyPyList_Sort(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyList_Sort(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsDouble"]
-    pub fn PyPyLong_AsDouble(arg0: *mut PyObject) -> f64;
+    pub fn PyLong_AsDouble(arg0: *mut PyObject) -> f64;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsLong"]
-    pub fn PyPyLong_AsLong(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyLong_AsLong(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsLongAndOverflow"]
-    pub fn PyPyLong_AsLongAndOverflow(
+    pub fn PyLong_AsLongAndOverflow(
         arg0: *mut PyObject,
         arg1: *mut ::std::os::raw::c_int,
     ) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsLongLong"]
-    pub fn PyPyLong_AsLongLong(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyLong_AsLongLong(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsLongLongAndOverflow"]
-    pub fn PyPyLong_AsLongLongAndOverflow(
+    pub fn PyLong_AsLongLongAndOverflow(
         arg0: *mut PyObject,
         arg1: *mut ::std::os::raw::c_int,
     ) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsSize_t"]
-    pub fn PyPyLong_AsSize_t(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
+    pub fn PyLong_AsSize_t(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsSsize_t"]
-    pub fn PyPyLong_AsSsize_t(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyLong_AsSsize_t(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsUnsignedLong"]
-    pub fn PyPyLong_AsUnsignedLong(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
+    pub fn PyLong_AsUnsignedLong(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsUnsignedLongLong"]
-    pub fn PyPyLong_AsUnsignedLongLong(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
+    pub fn PyLong_AsUnsignedLongLong(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsUnsignedLongLongMask"]
-    pub fn PyPyLong_AsUnsignedLongLongMask(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
+    pub fn PyLong_AsUnsignedLongLongMask(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsUnsignedLongMask"]
-    pub fn PyPyLong_AsUnsignedLongMask(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
+    pub fn PyLong_AsUnsignedLongMask(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_AsVoidPtr"]
-    pub fn PyPyLong_AsVoidPtr(arg0: *mut PyObject) -> *mut ::std::os::raw::c_void;
+    pub fn PyLong_AsVoidPtr(arg0: *mut PyObject) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromDouble"]
-    pub fn PyPyLong_FromDouble(arg0: f64) -> *mut PyObject;
+    pub fn PyLong_FromDouble(arg0: f64) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromLong"]
-    pub fn PyPyLong_FromLong(arg0: Py_ssize_t) -> *mut PyObject;
+    pub fn PyLong_FromLong(arg0: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromLongLong"]
-    pub fn PyPyLong_FromLongLong(arg0: Py_ssize_t) -> *mut PyObject;
+    pub fn PyLong_FromLongLong(arg0: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromSize_t"]
-    pub fn PyPyLong_FromSize_t(arg0: ::std::os::raw::c_ulong) -> *mut PyObject;
+    pub fn PyLong_FromSize_t(arg0: ::std::os::raw::c_ulong) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromSsize_t"]
-    pub fn PyPyLong_FromSsize_t(arg0: Py_ssize_t) -> *mut PyObject;
+    pub fn PyLong_FromSsize_t(arg0: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromString"]
-    pub fn PyPyLong_FromString(
+    pub fn PyLong_FromString(
         arg0: *const ::std::os::raw::c_char,
         arg1: *mut *mut ::std::os::raw::c_char,
         arg2: ::std::os::raw::c_int,
@@ -24058,7 +23519,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromUnicode"]
-    pub fn PyPyLong_FromUnicode(
+    pub fn PyLong_FromUnicode(
         arg0: *mut wchar_t,
         arg1: Py_ssize_t,
         arg2: ::std::os::raw::c_int,
@@ -24066,60 +23527,60 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromUnicodeObject"]
-    pub fn PyPyLong_FromUnicodeObject(
+    pub fn PyLong_FromUnicodeObject(
         arg0: *mut PyObject,
         arg1: ::std::os::raw::c_int,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromUnsignedLong"]
-    pub fn PyPyLong_FromUnsignedLong(arg0: ::std::os::raw::c_ulong) -> *mut PyObject;
+    pub fn PyLong_FromUnsignedLong(arg0: ::std::os::raw::c_ulong) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromUnsignedLongLong"]
-    pub fn PyPyLong_FromUnsignedLongLong(arg0: ::std::os::raw::c_ulong) -> *mut PyObject;
+    pub fn PyLong_FromUnsignedLongLong(arg0: ::std::os::raw::c_ulong) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_FromVoidPtr"]
-    pub fn PyPyLong_FromVoidPtr(arg0: *mut ::std::os::raw::c_void) -> *mut PyObject;
+    pub fn PyLong_FromVoidPtr(arg0: *mut ::std::os::raw::c_void) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_Check"]
-    pub fn PyPyMapping_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyMapping_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_GetItemString"]
-    pub fn PyPyMapping_GetItemString(
+    pub fn PyMapping_GetItemString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_HasKey"]
-    pub fn PyPyMapping_HasKey(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyMapping_HasKey(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_HasKeyString"]
-    pub fn PyPyMapping_HasKeyString(
+    pub fn PyMapping_HasKeyString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_Items"]
-    pub fn PyPyMapping_Items(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyMapping_Items(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_Keys"]
-    pub fn PyPyMapping_Keys(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyMapping_Keys(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_Length"]
-    pub fn PyPyMapping_Length(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyMapping_Length(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_SetItemString"]
-    pub fn PyPyMapping_SetItemString(
+    pub fn PyMapping_SetItemString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
         arg2: *mut PyObject,
@@ -24127,27 +23588,27 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_Size"]
-    pub fn PyPyMapping_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyMapping_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMapping_Values"]
-    pub fn PyPyMapping_Values(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyMapping_Values(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMemoryView_Check"]
-    pub fn PyPyMemoryView_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyMemoryView_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMemoryView_CheckExact"]
-    pub fn PyPyMemoryView_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyMemoryView_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMemoryView_FromBuffer"]
-    pub fn PyPyMemoryView_FromBuffer(arg0: *mut Py_buffer) -> *mut PyObject;
+    pub fn PyMemoryView_FromBuffer(arg0: *mut Py_buffer) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMemoryView_FromMemory"]
-    pub fn PyPyMemoryView_FromMemory(
+    pub fn PyMemoryView_FromMemory(
         arg0: *mut ::std::os::raw::c_char,
         arg1: Py_ssize_t,
         arg2: ::std::os::raw::c_int,
@@ -24155,39 +23616,39 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMemoryView_FromObject"]
-    pub fn PyPyMemoryView_FromObject(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyMemoryView_FromObject(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethodDescr_Check"]
-    pub fn PyPyMethodDescr_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyMethodDescr_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethodDescr_CheckExact"]
-    pub fn PyPyMethodDescr_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyMethodDescr_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethod_Check"]
-    pub fn PyPyMethod_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyMethod_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethod_CheckExact"]
-    pub fn PyPyMethod_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyMethod_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethod_Function"]
-    pub fn PyPyMethod_Function(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyMethod_Function(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethod_New"]
-    pub fn PyPyMethod_New(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyMethod_New(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethod_Self"]
-    pub fn PyPyMethod_Self(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyMethod_Self(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_Check"]
-    pub fn PyPyModule_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyModule_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_Create2"]
@@ -24196,91 +23657,91 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_GetDict"]
-    pub fn PyPyModule_GetDict(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyModule_GetDict(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_GetName"]
-    pub fn PyPyModule_GetName(arg0: *mut PyObject) -> *mut ::std::os::raw::c_char;
+    pub fn PyModule_GetName(arg0: *mut PyObject) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_New"]
-    pub fn PyPyModule_New(arg0: *mut ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PyModule_New(arg0: *mut ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Absolute"]
-    pub fn PyPyNumber_Absolute(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Absolute(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Add"]
-    pub fn PyPyNumber_Add(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Add(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_And"]
-    pub fn PyPyNumber_And(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_And(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_AsSsize_t"]
-    pub fn PyPyNumber_AsSsize_t(arg0: *mut PyObject, arg1: *mut PyObject) -> Py_ssize_t;
+    pub fn PyNumber_AsSsize_t(arg0: *mut PyObject, arg1: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Check"]
-    pub fn PyPyNumber_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyNumber_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Divide"]
-    pub fn PyPyNumber_Divide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Divide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Divmod"]
-    pub fn PyPyNumber_Divmod(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Divmod(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Float"]
-    pub fn PyPyNumber_Float(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Float(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_FloorDivide"]
-    pub fn PyPyNumber_FloorDivide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_FloorDivide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceAdd"]
-    pub fn PyPyNumber_InPlaceAdd(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceAdd(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceAnd"]
-    pub fn PyPyNumber_InPlaceAnd(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceAnd(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceDivide"]
-    pub fn PyPyNumber_InPlaceDivide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceDivide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceFloorDivide"]
-    pub fn PyPyNumber_InPlaceFloorDivide(arg0: *mut PyObject, arg1: *mut PyObject)
+    pub fn PyNumber_InPlaceFloorDivide(arg0: *mut PyObject, arg1: *mut PyObject)
         -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceLshift"]
-    pub fn PyPyNumber_InPlaceLshift(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceLshift(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceMatrixMultiply"]
-    pub fn PyPyNumber_InPlaceMatrixMultiply(
+    pub fn PyNumber_InPlaceMatrixMultiply(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceMultiply"]
-    pub fn PyPyNumber_InPlaceMultiply(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceMultiply(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceOr"]
-    pub fn PyPyNumber_InPlaceOr(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceOr(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlacePower"]
-    pub fn PyPyNumber_InPlacePower(
+    pub fn PyNumber_InPlacePower(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -24288,63 +23749,63 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceRemainder"]
-    pub fn PyPyNumber_InPlaceRemainder(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceRemainder(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceRshift"]
-    pub fn PyPyNumber_InPlaceRshift(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceRshift(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceSubtract"]
-    pub fn PyPyNumber_InPlaceSubtract(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceSubtract(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceTrueDivide"]
-    pub fn PyPyNumber_InPlaceTrueDivide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceTrueDivide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_InPlaceXor"]
-    pub fn PyPyNumber_InPlaceXor(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_InPlaceXor(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Index"]
-    pub fn PyPyNumber_Index(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Index(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Invert"]
-    pub fn PyPyNumber_Invert(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Invert(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Long"]
-    pub fn PyPyNumber_Long(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Long(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Lshift"]
-    pub fn PyPyNumber_Lshift(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Lshift(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_MatrixMultiply"]
-    pub fn PyPyNumber_MatrixMultiply(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_MatrixMultiply(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Multiply"]
-    pub fn PyPyNumber_Multiply(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Multiply(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Negative"]
-    pub fn PyPyNumber_Negative(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Negative(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Or"]
-    pub fn PyPyNumber_Or(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Or(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Positive"]
-    pub fn PyPyNumber_Positive(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Positive(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Power"]
-    pub fn PyPyNumber_Power(
+    pub fn PyNumber_Power(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -24352,35 +23813,35 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Remainder"]
-    pub fn PyPyNumber_Remainder(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Remainder(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Rshift"]
-    pub fn PyPyNumber_Rshift(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Rshift(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Subtract"]
-    pub fn PyPyNumber_Subtract(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Subtract(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_TrueDivide"]
-    pub fn PyPyNumber_TrueDivide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_TrueDivide(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNumber_Xor"]
-    pub fn PyPyNumber_Xor(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyNumber_Xor(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyOS_AfterFork"]
-    pub fn PyPyOS_AfterFork();
+    pub fn PyOS_AfterFork();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyOS_InterruptOccurred"]
-    pub fn PyPyOS_InterruptOccurred() -> ::std::os::raw::c_int;
+    pub fn PyOS_InterruptOccurred() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyOS_double_to_string"]
-    pub fn PyPyOS_double_to_string(
+    pub fn PyOS_double_to_string(
         arg0: f64,
         arg1: ::std::os::raw::c_char,
         arg2: ::std::os::raw::c_int,
@@ -24390,7 +23851,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyOS_string_to_double"]
-    pub fn PyPyOS_string_to_double(
+    pub fn PyOS_string_to_double(
         arg0: *const ::std::os::raw::c_char,
         arg1: *mut *mut ::std::os::raw::c_char,
         arg2: *mut PyObject,
@@ -24398,11 +23859,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_ASCII"]
-    pub fn PyPyObject_ASCII(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_ASCII(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_AsCharBuffer"]
-    pub fn PyPyObject_AsCharBuffer(
+    pub fn PyObject_AsCharBuffer(
         arg0: *mut PyObject,
         arg1: *mut *const ::std::os::raw::c_char,
         arg2: *mut Py_ssize_t,
@@ -24410,15 +23871,15 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_AsFileDescriptor"]
-    pub fn PyPyObject_AsFileDescriptor(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyObject_AsFileDescriptor(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Bytes"]
-    pub fn PyPyObject_Bytes(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_Bytes(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Call"]
-    pub fn PyPyObject_Call(
+    pub fn PyObject_Call(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -24426,50 +23887,50 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_CallObject"]
-    pub fn PyPyObject_CallObject(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_CallObject(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_ClearWeakRefs"]
-    pub fn PyPyObject_ClearWeakRefs(arg0: *mut PyObject);
+    pub fn PyObject_ClearWeakRefs(arg0: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_DelAttr"]
-    pub fn PyPyObject_DelAttr(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyObject_DelAttr(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_DelAttrString"]
-    pub fn PyPyObject_DelAttrString(
+    pub fn PyObject_DelAttrString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_DelItem"]
-    pub fn PyPyObject_DelItem(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyObject_DelItem(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Dir"]
-    pub fn PyPyObject_Dir(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_Dir(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Format"]
-    pub fn PyPyObject_Format(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_Format(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Free"]
-    pub fn PyPyObject_Free(arg0: *mut ::std::os::raw::c_void);
+    pub fn PyObject_Free(arg0: *mut ::std::os::raw::c_void);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_GC_Del"]
-    pub fn PyPyObject_GC_Del(arg0: *mut ::std::os::raw::c_void);
+    pub fn PyObject_GC_Del(arg0: *mut ::std::os::raw::c_void);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_GenericGetAttr"]
-    pub fn PyPyObject_GenericGetAttr(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_GenericGetAttr(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_GenericSetAttr"]
-    pub fn PyPyObject_GenericSetAttr(
+    pub fn PyObject_GenericSetAttr(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -24477,49 +23938,49 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_GetAttr"]
-    pub fn PyPyObject_GetAttr(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_GetAttr(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_GetAttrString"]
-    pub fn PyPyObject_GetAttrString(
+    pub fn PyObject_GetAttrString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_GetItem"]
-    pub fn PyPyObject_GetItem(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_GetItem(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_GetIter"]
-    pub fn PyPyObject_GetIter(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_GetIter(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_HasAttr"]
-    pub fn PyPyObject_HasAttr(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyObject_HasAttr(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_HasAttrString"]
-    pub fn PyPyObject_HasAttrString(
+    pub fn PyObject_HasAttrString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Hash"]
-    pub fn PyPyObject_Hash(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyObject_Hash(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_HashNotImplemented"]
-    pub fn PyPyObject_HashNotImplemented(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyObject_HashNotImplemented(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Init"]
-    pub fn PyPyObject_Init(arg0: *mut PyObject, arg1: *mut PyTypeObject) -> *mut PyObject;
+    pub fn PyObject_Init(arg0: *mut PyObject, arg1: *mut PyTypeObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_InitVar"]
-    pub fn PyPyObject_InitVar(
+    pub fn PyObject_InitVar(
         arg0: *mut PyVarObject,
         arg1: *mut PyTypeObject,
         arg2: Py_ssize_t,
@@ -24527,33 +23988,33 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_IsInstance"]
-    pub fn PyPyObject_IsInstance(arg0: *mut PyObject, arg1: *mut PyObject)
+    pub fn PyObject_IsInstance(arg0: *mut PyObject, arg1: *mut PyObject)
         -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_IsSubclass"]
-    pub fn PyPyObject_IsSubclass(arg0: *mut PyObject, arg1: *mut PyObject)
+    pub fn PyObject_IsSubclass(arg0: *mut PyObject, arg1: *mut PyObject)
         -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_IsTrue"]
-    pub fn PyPyObject_IsTrue(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyObject_IsTrue(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_LengthHint"]
-    pub fn PyPyObject_LengthHint(arg0: *mut PyObject, arg1: Py_ssize_t) -> Py_ssize_t;
+    pub fn PyObject_LengthHint(arg0: *mut PyObject, arg1: Py_ssize_t) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Malloc"]
-    pub fn PyPyObject_Malloc(arg0: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
+    pub fn PyObject_Malloc(arg0: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Not"]
-    pub fn PyPyObject_Not(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyObject_Not(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Print"]
-    pub fn PyPyObject_Print(
+    pub fn PyObject_Print(
         arg0: *mut PyObject,
         arg1: *mut FILE,
         arg2: ::std::os::raw::c_int,
@@ -24561,18 +24022,18 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Realloc"]
-    pub fn PyPyObject_Realloc(
+    pub fn PyObject_Realloc(
         arg0: *mut ::std::os::raw::c_void,
         arg1: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Repr"]
-    pub fn PyPyObject_Repr(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_Repr(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_RichCompare"]
-    pub fn PyPyObject_RichCompare(
+    pub fn PyObject_RichCompare(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: ::std::os::raw::c_int,
@@ -24580,7 +24041,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_RichCompareBool"]
-    pub fn PyPyObject_RichCompareBool(
+    pub fn PyObject_RichCompareBool(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: ::std::os::raw::c_int,
@@ -24588,11 +24049,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_SelfIter"]
-    pub fn PyPyObject_SelfIter(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_SelfIter(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_SetAttr"]
-    pub fn PyPyObject_SetAttr(
+    pub fn PyObject_SetAttr(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -24600,7 +24061,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_SetAttrString"]
-    pub fn PyPyObject_SetAttrString(
+    pub fn PyObject_SetAttrString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
         arg2: *mut PyObject,
@@ -24608,7 +24069,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_SetItem"]
-    pub fn PyPyObject_SetItem(
+    pub fn PyObject_SetItem(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -24616,23 +24077,23 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Size"]
-    pub fn PyPyObject_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyObject_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Str"]
-    pub fn PyPyObject_Str(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_Str(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Type"]
-    pub fn PyPyObject_Type(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_Type(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyObject_Unicode"]
-    pub fn PyPyObject_Unicode(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyObject_Unicode(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyRun_File"]
-    pub fn PyPyRun_File(
+    pub fn PyRun_File(
         arg0: *mut FILE,
         arg1: *const ::std::os::raw::c_char,
         arg2: ::std::os::raw::c_int,
@@ -24642,11 +24103,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyRun_SimpleString"]
-    pub fn PyPyRun_SimpleString(arg0: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn PyRun_SimpleString(arg0: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyRun_String"]
-    pub fn PyPyRun_String(
+    pub fn PyRun_String(
         arg0: *const ::std::os::raw::c_char,
         arg1: ::std::os::raw::c_int,
         arg2: *mut PyObject,
@@ -24655,7 +24116,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyRun_StringFlags"]
-    pub fn PyPyRun_StringFlags(
+    pub fn PyRun_StringFlags(
         arg0: *const ::std::os::raw::c_char,
         arg1: ::std::os::raw::c_int,
         arg2: *mut PyObject,
@@ -24665,28 +24126,28 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySeqIter_New"]
-    pub fn PyPySeqIter_New(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PySeqIter_New(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Check"]
-    pub fn PyPySequence_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PySequence_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Concat"]
-    pub fn PyPySequence_Concat(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PySequence_Concat(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Contains"]
-    pub fn PyPySequence_Contains(arg0: *mut PyObject, arg1: *mut PyObject)
+    pub fn PySequence_Contains(arg0: *mut PyObject, arg1: *mut PyObject)
         -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_DelItem"]
-    pub fn PyPySequence_DelItem(arg0: *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
+    pub fn PySequence_DelItem(arg0: *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_DelSlice"]
-    pub fn PyPySequence_DelSlice(
+    pub fn PySequence_DelSlice(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: Py_ssize_t,
@@ -24694,33 +24155,33 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Fast"]
-    pub fn PyPySequence_Fast(
+    pub fn PySequence_Fast(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Fast_GET_ITEM"]
-    pub fn PyPySequence_Fast_GET_ITEM(
+    pub fn PySequence_Fast_GET_ITEM(
         arg0: *mut ::std::os::raw::c_void,
         arg1: Py_ssize_t,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Fast_GET_SIZE"]
-    pub fn PyPySequence_Fast_GET_SIZE(arg0: *mut ::std::os::raw::c_void) -> Py_ssize_t;
+    pub fn PySequence_Fast_GET_SIZE(arg0: *mut ::std::os::raw::c_void) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Fast_ITEMS"]
-    pub fn PyPySequence_Fast_ITEMS(arg0: *mut ::std::os::raw::c_void) -> *mut *mut PyObject;
+    pub fn PySequence_Fast_ITEMS(arg0: *mut ::std::os::raw::c_void) -> *mut *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_GetItem"]
-    pub fn PyPySequence_GetItem(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PySequence_GetItem(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_GetSlice"]
-    pub fn PyPySequence_GetSlice(
+    pub fn PySequence_GetSlice(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: Py_ssize_t,
@@ -24728,35 +24189,35 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_ITEM"]
-    pub fn PyPySequence_ITEM(arg0: *mut ::std::os::raw::c_void, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PySequence_ITEM(arg0: *mut ::std::os::raw::c_void, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_InPlaceConcat"]
-    pub fn PyPySequence_InPlaceConcat(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PySequence_InPlaceConcat(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_InPlaceRepeat"]
-    pub fn PyPySequence_InPlaceRepeat(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PySequence_InPlaceRepeat(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Index"]
-    pub fn PyPySequence_Index(arg0: *mut PyObject, arg1: *mut PyObject) -> Py_ssize_t;
+    pub fn PySequence_Index(arg0: *mut PyObject, arg1: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Length"]
-    pub fn PyPySequence_Length(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PySequence_Length(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_List"]
-    pub fn PyPySequence_List(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PySequence_List(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Repeat"]
-    pub fn PyPySequence_Repeat(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PySequence_Repeat(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_SetItem"]
-    pub fn PyPySequence_SetItem(
+    pub fn PySequence_SetItem(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: *mut PyObject,
@@ -24764,7 +24225,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_SetSlice"]
-    pub fn PyPySequence_SetSlice(
+    pub fn PySequence_SetSlice(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: Py_ssize_t,
@@ -24773,63 +24234,63 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Size"]
-    pub fn PyPySequence_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PySequence_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySequence_Tuple"]
-    pub fn PyPySequence_Tuple(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PySequence_Tuple(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_Add"]
-    pub fn PyPySet_Add(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PySet_Add(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_Check"]
-    pub fn PyPySet_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PySet_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_CheckExact"]
-    pub fn PyPySet_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PySet_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_Clear"]
-    pub fn PyPySet_Clear(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PySet_Clear(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_Contains"]
-    pub fn PyPySet_Contains(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PySet_Contains(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_Discard"]
-    pub fn PyPySet_Discard(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PySet_Discard(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_GET_SIZE"]
-    pub fn PyPySet_GET_SIZE(arg0: *mut ::std::os::raw::c_void) -> Py_ssize_t;
+    pub fn PySet_GET_SIZE(arg0: *mut ::std::os::raw::c_void) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_New"]
-    pub fn PyPySet_New(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PySet_New(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_Pop"]
-    pub fn PyPySet_Pop(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PySet_Pop(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_Size"]
-    pub fn PyPySet_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PySet_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySlice_Check"]
-    pub fn PyPySlice_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PySlice_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySlice_CheckExact"]
-    pub fn PyPySlice_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PySlice_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySlice_GetIndices"]
-    pub fn PyPySlice_GetIndices(
+    pub fn PySlice_GetIndices(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: *mut Py_ssize_t,
@@ -24839,7 +24300,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySlice_New"]
-    pub fn PyPySlice_New(
+    pub fn PySlice_New(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -24847,86 +24308,86 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyStaticMethod_New"]
-    pub fn PyPyStaticMethod_New(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyStaticMethod_New(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySys_GetObject"]
-    pub fn PyPySys_GetObject(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PySys_GetObject(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySys_SetObject"]
-    pub fn PyPySys_SetObject(
+    pub fn PySys_SetObject(
         arg0: *const ::std::os::raw::c_char,
         arg1: *mut PyObject,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTZInfo_Check"]
-    pub fn PyPyTZInfo_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyTZInfo_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTZInfo_CheckExact"]
-    pub fn PyPyTZInfo_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyTZInfo_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThreadState_Clear"]
-    pub fn PyPyThreadState_Clear(arg0: *mut PyThreadState);
+    pub fn PyThreadState_Clear(arg0: *mut PyThreadState);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThreadState_Delete"]
-    pub fn PyPyThreadState_Delete(arg0: *mut PyThreadState);
+    pub fn PyThreadState_Delete(arg0: *mut PyThreadState);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThreadState_DeleteCurrent"]
-    pub fn PyPyThreadState_DeleteCurrent();
+    pub fn PyThreadState_DeleteCurrent();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThreadState_Get"]
-    pub fn PyPyThreadState_Get() -> *mut PyThreadState;
+    pub fn PyThreadState_Get() -> *mut PyThreadState;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThreadState_GetDict"]
-    pub fn PyPyThreadState_GetDict() -> *mut PyObject;
+    pub fn PyThreadState_GetDict() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThreadState_New"]
-    pub fn PyPyThreadState_New(arg0: *mut PyInterpreterState) -> *mut PyThreadState;
+    pub fn PyThreadState_New(arg0: *mut PyInterpreterState) -> *mut PyThreadState;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThreadState_Swap"]
-    pub fn PyPyThreadState_Swap(arg0: *mut PyThreadState) -> *mut PyThreadState;
+    pub fn PyThreadState_Swap(arg0: *mut PyThreadState) -> *mut PyThreadState;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyThread_exit_thread"]
-    pub fn PyPyThread_exit_thread() -> *mut PyObject;
+    pub fn PyThread_exit_thread() -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTime_Check"]
-    pub fn PyPyTime_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyTime_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTime_CheckExact"]
-    pub fn PyPyTime_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyTime_CheckExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTraceBack_Check"]
-    pub fn PyPyTraceBack_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyTraceBack_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTraceBack_Here"]
-    pub fn PyPyTraceBack_Here(arg0: *mut PyFrameObject) -> ::std::os::raw::c_int;
+    pub fn PyTraceBack_Here(arg0: *mut PyFrameObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTraceBack_Print"]
-    pub fn PyPyTraceBack_Print(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyTraceBack_Print(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTuple_GetItem"]
-    pub fn PyPyTuple_GetItem(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PyTuple_GetItem(arg0: *mut PyObject, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTuple_GetSlice"]
-    pub fn PyPyTuple_GetSlice(
+    pub fn PyTuple_GetSlice(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: Py_ssize_t,
@@ -24934,11 +24395,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTuple_New"]
-    pub fn PyPyTuple_New(arg0: Py_ssize_t) -> *mut PyObject;
+    pub fn PyTuple_New(arg0: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTuple_SetItem"]
-    pub fn PyPyTuple_SetItem(
+    pub fn PyTuple_SetItem(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: *mut PyObject,
@@ -24946,20 +24407,20 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTuple_Size"]
-    pub fn PyPyTuple_Size(arg0: *mut PyObject) -> Py_ssize_t;
+    pub fn PyTuple_Size(arg0: *mut PyObject) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyType_FromSpecWithBases"]
-    pub fn PyPyType_FromSpecWithBases(arg0: *mut PyType_Spec, arg1: *mut PyObject)
+    pub fn PyType_FromSpecWithBases(arg0: *mut PyType_Spec, arg1: *mut PyObject)
         -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyType_GenericAlloc"]
-    pub fn PyPyType_GenericAlloc(arg0: *mut PyTypeObject, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PyType_GenericAlloc(arg0: *mut PyTypeObject, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyType_GenericNew"]
-    pub fn PyPyType_GenericNew(
+    pub fn PyType_GenericNew(
         arg0: *mut PyTypeObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -24967,26 +24428,26 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyType_IsSubtype"]
-    pub fn PyPyType_IsSubtype(
+    pub fn PyType_IsSubtype(
         arg0: *mut PyTypeObject,
         arg1: *mut PyTypeObject,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyType_Modified"]
-    pub fn PyPyType_Modified(arg0: *mut PyTypeObject);
+    pub fn PyType_Modified(arg0: *mut PyTypeObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyType_Ready"]
-    pub fn PyPyType_Ready(arg0: *mut PyTypeObject) -> ::std::os::raw::c_int;
+    pub fn PyType_Ready(arg0: *mut PyTypeObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsASCIIString"]
-    pub fn PyPyUnicode_AsASCIIString(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_AsASCIIString(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsEncodedObject"]
-    pub fn PyPyUnicode_AsEncodedObject(
+    pub fn PyUnicode_AsEncodedObject(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
         arg2: *const ::std::os::raw::c_char,
@@ -24994,7 +24455,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsEncodedString"]
-    pub fn PyPyUnicode_AsEncodedString(
+    pub fn PyUnicode_AsEncodedString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
         arg2: *const ::std::os::raw::c_char,
@@ -25002,11 +24463,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsLatin1String"]
-    pub fn PyPyUnicode_AsLatin1String(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_AsLatin1String(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsUTF8"]
-    pub fn PyPyUnicode_AsUTF8(arg0: *mut PyObject) -> *mut ::std::os::raw::c_char;
+    pub fn PyUnicode_AsUTF8(arg0: *mut PyObject) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsUTF8AndSize"]
@@ -25017,26 +24478,26 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsUTF8String"]
-    pub fn PyPyUnicode_AsUTF8String(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_AsUTF8String(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsUnicode"]
-    pub fn PyPyUnicode_AsUnicode(arg0: *mut PyObject) -> *mut Py_UNICODE;
+    pub fn PyUnicode_AsUnicode(arg0: *mut PyObject) -> *mut Py_UNICODE;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsUnicodeAndSize"]
-    pub fn PyPyUnicode_AsUnicodeAndSize(
+    pub fn PyUnicode_AsUnicodeAndSize(
         arg0: *mut PyObject,
         arg1: *mut Py_ssize_t,
     ) -> *mut Py_UNICODE;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsUnicodeEscapeString"]
-    pub fn PyPyUnicode_AsUnicodeEscapeString(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_AsUnicodeEscapeString(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_AsWideChar"]
-    pub fn PyPyUnicode_AsWideChar(
+    pub fn PyUnicode_AsWideChar(
         arg0: *mut PyObject,
         arg1: *mut wchar_t,
         arg2: Py_ssize_t,
@@ -25044,30 +24505,30 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Check"]
-    pub fn PyPyUnicode_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyUnicode_Check(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_CheckExact"]
-    pub fn PyPyUnicode_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn PyUnicode_CheckExact(arg0: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Compare"]
-    pub fn PyPyUnicode_Compare(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyUnicode_Compare(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_CompareWithASCIIString"]
-    pub fn PyPyUnicode_CompareWithASCIIString(
+    pub fn PyUnicode_CompareWithASCIIString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Concat"]
-    pub fn PyPyUnicode_Concat(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_Concat(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Count"]
-    pub fn PyPyUnicode_Count(
+    pub fn PyUnicode_Count(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: Py_ssize_t,
@@ -25076,7 +24537,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Decode"]
-    pub fn PyPyUnicode_Decode(
+    pub fn PyUnicode_Decode(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25085,7 +24546,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_DecodeASCII"]
-    pub fn PyPyUnicode_DecodeASCII(
+    pub fn PyUnicode_DecodeASCII(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25093,18 +24554,18 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_DecodeFSDefault"]
-    pub fn PyPyUnicode_DecodeFSDefault(arg0: *mut ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PyUnicode_DecodeFSDefault(arg0: *mut ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_DecodeFSDefaultAndSize"]
-    pub fn PyPyUnicode_DecodeFSDefaultAndSize(
+    pub fn PyUnicode_DecodeFSDefaultAndSize(
         arg0: *mut ::std::os::raw::c_char,
         arg1: Py_ssize_t,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_DecodeLatin1"]
-    pub fn PyPyUnicode_DecodeLatin1(
+    pub fn PyUnicode_DecodeLatin1(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25112,7 +24573,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_DecodeUTF16"]
-    pub fn PyPyUnicode_DecodeUTF16(
+    pub fn PyUnicode_DecodeUTF16(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25121,7 +24582,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_DecodeUTF32"]
-    pub fn PyPyUnicode_DecodeUTF32(
+    pub fn PyUnicode_DecodeUTF32(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25130,7 +24591,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_DecodeUTF8"]
-    pub fn PyPyUnicode_DecodeUTF8(
+    pub fn PyUnicode_DecodeUTF8(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25138,7 +24599,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_EncodeASCII"]
-    pub fn PyPyUnicode_EncodeASCII(
+    pub fn PyUnicode_EncodeASCII(
         arg0: *const wchar_t,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25146,7 +24607,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_EncodeDecimal"]
-    pub fn PyPyUnicode_EncodeDecimal(
+    pub fn PyUnicode_EncodeDecimal(
         arg0: *mut wchar_t,
         arg1: Py_ssize_t,
         arg2: *mut ::std::os::raw::c_char,
@@ -25155,11 +24616,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_EncodeFSDefault"]
-    pub fn PyPyUnicode_EncodeFSDefault(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_EncodeFSDefault(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_EncodeLatin1"]
-    pub fn PyPyUnicode_EncodeLatin1(
+    pub fn PyUnicode_EncodeLatin1(
         arg0: *const wchar_t,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25167,7 +24628,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_EncodeUTF8"]
-    pub fn PyPyUnicode_EncodeUTF8(
+    pub fn PyUnicode_EncodeUTF8(
         arg0: *const wchar_t,
         arg1: Py_ssize_t,
         arg2: *const ::std::os::raw::c_char,
@@ -25175,21 +24636,21 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FSConverter"]
-    pub fn PyPyUnicode_FSConverter(
+    pub fn PyUnicode_FSConverter(
         arg0: *mut PyObject,
         arg1: *mut *mut PyObject,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FSDecoder"]
-    pub fn PyPyUnicode_FSDecoder(
+    pub fn PyUnicode_FSDecoder(
         arg0: *mut PyObject,
         arg1: *mut *mut PyObject,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Find"]
-    pub fn PyPyUnicode_Find(
+    pub fn PyUnicode_Find(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: Py_ssize_t,
@@ -25199,11 +24660,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Format"]
-    pub fn PyPyUnicode_Format(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_Format(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromEncodedObject"]
-    pub fn PyPyUnicode_FromEncodedObject(
+    pub fn PyUnicode_FromEncodedObject(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
         arg2: *const ::std::os::raw::c_char,
@@ -25211,7 +24672,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromKindAndData"]
-    pub fn PyPyUnicode_FromKindAndData(
+    pub fn PyUnicode_FromKindAndData(
         arg0: ::std::os::raw::c_int,
         arg1: *const ::std::os::raw::c_void,
         arg2: Py_ssize_t,
@@ -25219,54 +24680,54 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromObject"]
-    pub fn PyPyUnicode_FromObject(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_FromObject(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromOrdinal"]
-    pub fn PyPyUnicode_FromOrdinal(arg0: ::std::os::raw::c_int) -> *mut PyObject;
+    pub fn PyUnicode_FromOrdinal(arg0: ::std::os::raw::c_int) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromString"]
-    pub fn PyPyUnicode_FromString(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PyUnicode_FromString(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromStringAndSize"]
-    pub fn PyPyUnicode_FromStringAndSize(
+    pub fn PyUnicode_FromStringAndSize(
         arg0: *const ::std::os::raw::c_char,
         arg1: Py_ssize_t,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromUnicode"]
-    pub fn PyPyUnicode_FromUnicode(arg0: *const wchar_t, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PyUnicode_FromUnicode(arg0: *const wchar_t, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_FromWideChar"]
-    pub fn PyPyUnicode_FromWideChar(arg0: *const wchar_t, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn PyUnicode_FromWideChar(arg0: *const wchar_t, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_GetDefaultEncoding"]
-    pub fn PyPyUnicode_GetDefaultEncoding() -> *mut ::std::os::raw::c_char;
+    pub fn PyUnicode_GetDefaultEncoding() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_GetMax"]
-    pub fn PyPyUnicode_GetMax() -> wchar_t;
+    pub fn PyUnicode_GetMax() -> wchar_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_InternFromString"]
-    pub fn PyPyUnicode_InternFromString(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
+    pub fn PyUnicode_InternFromString(arg0: *const ::std::os::raw::c_char) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_InternInPlace"]
-    pub fn PyPyUnicode_InternInPlace(arg0: *mut *mut PyObject);
+    pub fn PyUnicode_InternInPlace(arg0: *mut *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Join"]
-    pub fn PyPyUnicode_Join(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyUnicode_Join(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Replace"]
-    pub fn PyPyUnicode_Replace(
+    pub fn PyUnicode_Replace(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: *mut PyObject,
@@ -25275,11 +24736,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Resize"]
-    pub fn PyPyUnicode_Resize(arg0: *mut *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
+    pub fn PyUnicode_Resize(arg0: *mut *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Split"]
-    pub fn PyPyUnicode_Split(
+    pub fn PyUnicode_Split(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: Py_ssize_t,
@@ -25287,14 +24748,14 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Splitlines"]
-    pub fn PyPyUnicode_Splitlines(
+    pub fn PyUnicode_Splitlines(
         arg0: *mut PyObject,
         arg1: ::std::os::raw::c_int,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Substring"]
-    pub fn PyPyUnicode_Substring(
+    pub fn PyUnicode_Substring(
         arg0: *mut PyObject,
         arg1: Py_ssize_t,
         arg2: Py_ssize_t,
@@ -25302,7 +24763,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Tailmatch"]
-    pub fn PyPyUnicode_Tailmatch(
+    pub fn PyUnicode_Tailmatch(
         arg0: *mut PyObject,
         arg1: *mut PyObject,
         arg2: Py_ssize_t,
@@ -25312,50 +24773,50 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_TransformDecimalToASCII"]
-    pub fn PyPyUnicode_TransformDecimalToASCII(
+    pub fn PyUnicode_TransformDecimalToASCII(
         arg0: *mut wchar_t,
         arg1: Py_ssize_t,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_Check"]
-    pub fn PyPyWeakref_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyWeakref_Check(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_CheckProxy"]
-    pub fn PyPyWeakref_CheckProxy(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyWeakref_CheckProxy(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_CheckRef"]
-    pub fn PyPyWeakref_CheckRef(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyWeakref_CheckRef(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_CheckRefExact"]
-    pub fn PyPyWeakref_CheckRefExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn PyWeakref_CheckRefExact(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_GET_OBJECT"]
-    pub fn PyPyWeakref_GET_OBJECT(arg0: *mut ::std::os::raw::c_void) -> *mut PyObject;
+    pub fn PyWeakref_GET_OBJECT(arg0: *mut ::std::os::raw::c_void) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_GetObject"]
-    pub fn PyPyWeakref_GetObject(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyWeakref_GetObject(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_LockObject"]
-    pub fn PyPyWeakref_LockObject(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn PyWeakref_LockObject(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_NewProxy"]
-    pub fn PyPyWeakref_NewProxy(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyWeakref_NewProxy(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWeakref_NewRef"]
-    pub fn PyPyWeakref_NewRef(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn PyWeakref_NewRef(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_AddPendingCall"]
-    pub fn PyPy_AddPendingCall(
+    pub fn Py_AddPendingCall(
         arg0: ::std::option::Option<
             unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
         >,
@@ -25364,13 +24825,13 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_AtExit"]
-    pub fn PyPy_AtExit(
+    pub fn Py_AtExit(
         arg0: ::std::option::Option<unsafe extern "C" fn()>,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_CompileStringFlags"]
-    pub fn PyPy_CompileStringFlags(
+    pub fn Py_CompileStringFlags(
         arg0: *const ::std::os::raw::c_char,
         arg1: *const ::std::os::raw::c_char,
         arg2: ::std::os::raw::c_int,
@@ -25379,15 +24840,15 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_DecRef"]
-    pub fn PyPy_DecRef(arg0: *mut PyObject);
+    pub fn Py_DecRef(arg0: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_EnterRecursiveCall"]
-    pub fn PyPy_EnterRecursiveCall(arg0: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn Py_EnterRecursiveCall(arg0: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_FindMethod"]
-    pub fn PyPy_FindMethod(
+    pub fn Py_FindMethod(
         arg0: *mut PyMethodDef,
         arg1: *mut PyObject,
         arg2: *const ::std::os::raw::c_char,
@@ -25395,130 +24856,130 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_GetProgramName"]
-    pub fn PyPy_GetProgramName() -> *mut wchar_t;
+    pub fn Py_GetProgramName() -> *mut wchar_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_GetRecursionLimit"]
-    pub fn PyPy_GetRecursionLimit() -> ::std::os::raw::c_int;
+    pub fn Py_GetRecursionLimit() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_GetVersion"]
-    pub fn PyPy_GetVersion() -> *mut ::std::os::raw::c_char;
+    pub fn Py_GetVersion() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_IncRef"]
-    pub fn PyPy_IncRef(arg0: *mut PyObject);
+    pub fn Py_IncRef(arg0: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_IsInitialized"]
-    pub fn PyPy_IsInitialized() -> ::std::os::raw::c_int;
+    pub fn Py_IsInitialized() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_LeaveRecursiveCall"]
-    pub fn PyPy_LeaveRecursiveCall();
+    pub fn Py_LeaveRecursiveCall();
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_MakePendingCalls"]
-    pub fn PyPy_MakePendingCalls() -> ::std::os::raw::c_int;
+    pub fn Py_MakePendingCalls() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_SetRecursionLimit"]
-    pub fn PyPy_SetRecursionLimit(arg0: ::std::os::raw::c_int);
+    pub fn Py_SetRecursionLimit(arg0: ::std::os::raw::c_int);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_COPY"]
-    pub fn PyPy_UNICODE_COPY(arg0: *mut wchar_t, arg1: *mut wchar_t, arg2: Py_ssize_t);
+    pub fn Py_UNICODE_COPY(arg0: *mut wchar_t, arg1: *mut wchar_t, arg2: Py_ssize_t);
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISALNUM"]
-    pub fn PyPy_UNICODE_ISALNUM(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISALNUM(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISALPHA"]
-    pub fn PyPy_UNICODE_ISALPHA(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISALPHA(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISDECIMAL"]
-    pub fn PyPy_UNICODE_ISDECIMAL(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISDECIMAL(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISDIGIT"]
-    pub fn PyPy_UNICODE_ISDIGIT(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISDIGIT(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISLINEBREAK"]
-    pub fn PyPy_UNICODE_ISLINEBREAK(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISLINEBREAK(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISLOWER"]
-    pub fn PyPy_UNICODE_ISLOWER(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISLOWER(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISNUMERIC"]
-    pub fn PyPy_UNICODE_ISNUMERIC(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISNUMERIC(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISSPACE"]
-    pub fn PyPy_UNICODE_ISSPACE(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISSPACE(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISTITLE"]
-    pub fn PyPy_UNICODE_ISTITLE(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISTITLE(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_ISUPPER"]
-    pub fn PyPy_UNICODE_ISUPPER(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_ISUPPER(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_TODECIMAL"]
-    pub fn PyPy_UNICODE_TODECIMAL(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_TODECIMAL(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_TODIGIT"]
-    pub fn PyPy_UNICODE_TODIGIT(arg0: wchar_t) -> ::std::os::raw::c_int;
+    pub fn Py_UNICODE_TODIGIT(arg0: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_TOLOWER"]
-    pub fn PyPy_UNICODE_TOLOWER(arg0: wchar_t) -> wchar_t;
+    pub fn Py_UNICODE_TOLOWER(arg0: wchar_t) -> wchar_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_TONUMERIC"]
-    pub fn PyPy_UNICODE_TONUMERIC(arg0: wchar_t) -> f64;
+    pub fn Py_UNICODE_TONUMERIC(arg0: wchar_t) -> f64;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_TOTITLE"]
-    pub fn PyPy_UNICODE_TOTITLE(arg0: wchar_t) -> wchar_t;
+    pub fn Py_UNICODE_TOTITLE(arg0: wchar_t) -> wchar_t;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPy_UNICODE_TOUPPER"]
-    pub fn PyPy_UNICODE_TOUPPER(arg0: wchar_t) -> wchar_t;
+    pub fn Py_UNICODE_TOUPPER(arg0: wchar_t) -> wchar_t;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyBytes_Eq"]
-    pub fn _PyPyBytes_Eq(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn _PyBytes_Eq(arg0: *mut PyObject, arg1: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyBytes_Join"]
-    pub fn _PyPyBytes_Join(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn _PyBytes_Join(arg0: *mut PyObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyBytes_Resize"]
-    pub fn _PyPyBytes_Resize(arg0: *mut *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
+    pub fn _PyBytes_Resize(arg0: *mut *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyComplex_AsCComplex"]
-    pub fn _PyPyComplex_AsCComplex(
+    pub fn _PyComplex_AsCComplex(
         arg0: *mut PyObject,
         arg1: *mut Py_complex_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyComplex_FromCComplex"]
-    pub fn _PyPyComplex_FromCComplex(arg0: *mut Py_complex_t) -> *mut PyObject;
+    pub fn _PyComplex_FromCComplex(arg0: *mut Py_complex_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyDateTime_FromDateAndTime"]
-    pub fn _PyPyDateTime_FromDateAndTime(
+    pub fn _PyDateTime_FromDateAndTime(
         arg0: ::std::os::raw::c_int,
         arg1: ::std::os::raw::c_int,
         arg2: ::std::os::raw::c_int,
@@ -25532,11 +24993,11 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyDateTime_Import"]
-    pub fn _PyPyDateTime_Import() -> *mut PyDateTime_CAPI;
+    pub fn _PyDateTime_Import() -> *mut PyDateTime_CAPI;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyDate_FromDate"]
-    pub fn _PyPyDate_FromDate(
+    pub fn _PyDate_FromDate(
         arg0: ::std::os::raw::c_int,
         arg1: ::std::os::raw::c_int,
         arg2: ::std::os::raw::c_int,
@@ -25545,7 +25006,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyDelta_FromDelta"]
-    pub fn _PyPyDelta_FromDelta(
+    pub fn _PyDelta_FromDelta(
         arg0: ::std::os::raw::c_int,
         arg1: ::std::os::raw::c_int,
         arg2: ::std::os::raw::c_int,
@@ -25555,40 +25016,40 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyDict_HasOnlyStringKeys"]
-    pub fn _PyPyDict_HasOnlyStringKeys(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn _PyDict_HasOnlyStringKeys(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyEval_SliceIndex"]
-    pub fn _PyPyEval_SliceIndex(
+    pub fn _PyEval_SliceIndex(
         arg0: *mut PyObject,
         arg1: *mut Py_ssize_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyFloat_Unpack4"]
-    pub fn _PyPyFloat_Unpack4(
+    pub fn _PyFloat_Unpack4(
         arg0: *const ::std::os::raw::c_uchar,
         arg1: ::std::os::raw::c_int,
     ) -> f64;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyFloat_Unpack8"]
-    pub fn _PyPyFloat_Unpack8(
+    pub fn _PyFloat_Unpack8(
         arg0: *const ::std::os::raw::c_uchar,
         arg1: ::std::os::raw::c_int,
     ) -> f64;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyImport_AcquireLock"]
-    pub fn _PyPyImport_AcquireLock();
+    pub fn _PyImport_AcquireLock();
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyImport_ReleaseLock"]
-    pub fn _PyPyImport_ReleaseLock() -> ::std::os::raw::c_int;
+    pub fn _PyImport_ReleaseLock() -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyLong_FromByteArray"]
-    pub fn _PyPyLong_FromByteArray(
+    pub fn _PyLong_FromByteArray(
         arg0: *const ::std::os::raw::c_uchar,
         arg1: ::std::os::raw::c_ulong,
         arg2: ::std::os::raw::c_int,
@@ -25597,43 +25058,43 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyLong_NumBits"]
-    pub fn _PyPyLong_NumBits(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
+    pub fn _PyLong_NumBits(arg0: *mut PyObject) -> ::std::os::raw::c_ulong;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyLong_Sign"]
-    pub fn _PyPyLong_Sign(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn _PyLong_Sign(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyNamespace_New"]
-    pub fn _PyPyNamespace_New(arg0: *mut PyObject) -> *mut PyObject;
+    pub fn _PyNamespace_New(arg0: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyObject_GC_New"]
-    pub fn _PyPyObject_GC_New(arg0: *mut PyTypeObject) -> *mut PyObject;
+    pub fn _PyObject_GC_New(arg0: *mut PyTypeObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyObject_GC_NewVar"]
-    pub fn _PyPyObject_GC_NewVar(arg0: *mut PyTypeObject, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn _PyObject_GC_NewVar(arg0: *mut PyTypeObject, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyObject_GetDictPtr"]
-    pub fn _PyPyObject_GetDictPtr(arg0: *mut PyObject) -> *mut *mut PyObject;
+    pub fn _PyObject_GetDictPtr(arg0: *mut PyObject) -> *mut *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyObject_New"]
-    pub fn _PyPyObject_New(arg0: *mut PyTypeObject) -> *mut PyObject;
+    pub fn _PyObject_New(arg0: *mut PyTypeObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyObject_NewVar"]
-    pub fn _PyPyObject_NewVar(arg0: *mut PyTypeObject, arg1: Py_ssize_t) -> *mut PyObject;
+    pub fn _PyObject_NewVar(arg0: *mut PyTypeObject, arg1: Py_ssize_t) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyPyGC_AddMemoryPressure"]
-    pub fn _PyPyPyGC_AddMemoryPressure(arg0: Py_ssize_t);
+    pub fn _PyPyGC_AddMemoryPressure(arg0: Py_ssize_t);
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyTime_FromTime"]
-    pub fn _PyPyTime_FromTime(
+    pub fn _PyTime_FromTime(
         arg0: ::std::os::raw::c_int,
         arg1: ::std::os::raw::c_int,
         arg2: ::std::os::raw::c_int,
@@ -25644,54 +25105,54 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyTuple_Resize"]
-    pub fn _PyPyTuple_Resize(arg0: *mut *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
+    pub fn _PyTuple_Resize(arg0: *mut *mut PyObject, arg1: Py_ssize_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyType_Lookup"]
-    pub fn _PyPyType_Lookup(arg0: *mut PyTypeObject, arg1: *mut PyObject) -> *mut PyObject;
+    pub fn _PyType_Lookup(arg0: *mut PyTypeObject, arg1: *mut PyObject) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyUnicode_AsDefaultEncodedString"]
-    pub fn _PyPyUnicode_AsDefaultEncodedString(
+    pub fn _PyUnicode_AsDefaultEncodedString(
         arg0: *mut PyObject,
         arg1: *const ::std::os::raw::c_char,
     ) -> *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPyUnicode_Ready"]
-    pub fn _PyPyUnicode_Ready(arg0: *mut PyObject) -> ::std::os::raw::c_int;
+    pub fn _PyUnicode_Ready(arg0: *mut PyObject) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_Dealloc"]
-    pub fn _PyPy_Dealloc(arg0: *mut PyObject);
+    pub fn _Py_Dealloc(arg0: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_HashDouble"]
-    pub fn _PyPy_HashDouble(arg0: f64) -> Py_ssize_t;
+    pub fn _Py_HashDouble(arg0: f64) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_HashPointer"]
-    pub fn _PyPy_HashPointer(arg0: *mut ::std::os::raw::c_void) -> Py_ssize_t;
+    pub fn _Py_HashPointer(arg0: *mut ::std::os::raw::c_void) -> Py_ssize_t;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_NewReference"]
-    pub fn _PyPy_NewReference(arg0: *mut PyObject);
+    pub fn _Py_NewReference(arg0: *mut PyObject);
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_NoneStruct"]
-    pub static mut _PyPy_NoneStruct: PyObject;
+    pub static mut _Py_NoneStruct: PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_TrueStruct"]
-    pub static mut _PyPy_TrueStruct: PyObject;
+    pub static mut _Py_TrueStruct: PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_ZeroStruct"]
-    pub static mut _PyPy_ZeroStruct: PyObject;
+    pub static mut _Py_ZeroStruct: PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_NotImplementedStruct"]
-    pub static mut _PyPy_NotImplementedStruct: PyObject;
+    pub static mut _Py_NotImplementedStruct: PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}__PyPy_EllipsisObject"]
@@ -25703,375 +25164,375 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ArithmeticError"]
-    pub static mut PyPyExc_ArithmeticError: *mut PyObject;
+    pub static mut PyExc_ArithmeticError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_AssertionError"]
-    pub static mut PyPyExc_AssertionError: *mut PyObject;
+    pub static mut PyExc_AssertionError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_AttributeError"]
-    pub static mut PyPyExc_AttributeError: *mut PyObject;
+    pub static mut PyExc_AttributeError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_BaseException"]
-    pub static mut PyPyExc_BaseException: *mut PyObject;
+    pub static mut PyExc_BaseException: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_BlockingIOError"]
-    pub static mut PyPyExc_BlockingIOError: *mut PyObject;
+    pub static mut PyExc_BlockingIOError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_BrokenPipeError"]
-    pub static mut PyPyExc_BrokenPipeError: *mut PyObject;
+    pub static mut PyExc_BrokenPipeError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_BufferError"]
-    pub static mut PyPyExc_BufferError: *mut PyObject;
+    pub static mut PyExc_BufferError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_BytesWarning"]
-    pub static mut PyPyExc_BytesWarning: *mut PyObject;
+    pub static mut PyExc_BytesWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ChildProcessError"]
-    pub static mut PyPyExc_ChildProcessError: *mut PyObject;
+    pub static mut PyExc_ChildProcessError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ConnectionAbortedError"]
-    pub static mut PyPyExc_ConnectionAbortedError: *mut PyObject;
+    pub static mut PyExc_ConnectionAbortedError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ConnectionError"]
-    pub static mut PyPyExc_ConnectionError: *mut PyObject;
+    pub static mut PyExc_ConnectionError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ConnectionRefusedError"]
-    pub static mut PyPyExc_ConnectionRefusedError: *mut PyObject;
+    pub static mut PyExc_ConnectionRefusedError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ConnectionResetError"]
-    pub static mut PyPyExc_ConnectionResetError: *mut PyObject;
+    pub static mut PyExc_ConnectionResetError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_DeprecationWarning"]
-    pub static mut PyPyExc_DeprecationWarning: *mut PyObject;
+    pub static mut PyExc_DeprecationWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_EOFError"]
-    pub static mut PyPyExc_EOFError: *mut PyObject;
+    pub static mut PyExc_EOFError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_Exception"]
-    pub static mut PyPyExc_Exception: *mut PyObject;
+    pub static mut PyExc_Exception: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_FileExistsError"]
-    pub static mut PyPyExc_FileExistsError: *mut PyObject;
+    pub static mut PyExc_FileExistsError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_FileNotFoundError"]
-    pub static mut PyPyExc_FileNotFoundError: *mut PyObject;
+    pub static mut PyExc_FileNotFoundError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_FloatingPointError"]
-    pub static mut PyPyExc_FloatingPointError: *mut PyObject;
+    pub static mut PyExc_FloatingPointError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_FutureWarning"]
-    pub static mut PyPyExc_FutureWarning: *mut PyObject;
+    pub static mut PyExc_FutureWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_GeneratorExit"]
-    pub static mut PyPyExc_GeneratorExit: *mut PyObject;
+    pub static mut PyExc_GeneratorExit: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ImportError"]
-    pub static mut PyPyExc_ImportError: *mut PyObject;
+    pub static mut PyExc_ImportError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ImportWarning"]
-    pub static mut PyPyExc_ImportWarning: *mut PyObject;
+    pub static mut PyExc_ImportWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_IndentationError"]
-    pub static mut PyPyExc_IndentationError: *mut PyObject;
+    pub static mut PyExc_IndentationError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_IndexError"]
-    pub static mut PyPyExc_IndexError: *mut PyObject;
+    pub static mut PyExc_IndexError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_InterruptedError"]
-    pub static mut PyPyExc_InterruptedError: *mut PyObject;
+    pub static mut PyExc_InterruptedError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_IsADirectoryError"]
-    pub static mut PyPyExc_IsADirectoryError: *mut PyObject;
+    pub static mut PyExc_IsADirectoryError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_KeyError"]
-    pub static mut PyPyExc_KeyError: *mut PyObject;
+    pub static mut PyExc_KeyError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_KeyboardInterrupt"]
-    pub static mut PyPyExc_KeyboardInterrupt: *mut PyObject;
+    pub static mut PyExc_KeyboardInterrupt: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_LookupError"]
-    pub static mut PyPyExc_LookupError: *mut PyObject;
+    pub static mut PyExc_LookupError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_MemoryError"]
-    pub static mut PyPyExc_MemoryError: *mut PyObject;
+    pub static mut PyExc_MemoryError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_NameError"]
-    pub static mut PyPyExc_NameError: *mut PyObject;
+    pub static mut PyExc_NameError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_NotADirectoryError"]
-    pub static mut PyPyExc_NotADirectoryError: *mut PyObject;
+    pub static mut PyExc_NotADirectoryError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_NotImplementedError"]
-    pub static mut PyPyExc_NotImplementedError: *mut PyObject;
+    pub static mut PyExc_NotImplementedError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_OSError"]
-    pub static mut PyPyExc_OSError: *mut PyObject;
+    pub static mut PyExc_OSError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_OverflowError"]
-    pub static mut PyPyExc_OverflowError: *mut PyObject;
+    pub static mut PyExc_OverflowError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_PendingDeprecationWarning"]
-    pub static mut PyPyExc_PendingDeprecationWarning: *mut PyObject;
+    pub static mut PyExc_PendingDeprecationWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_PermissionError"]
-    pub static mut PyPyExc_PermissionError: *mut PyObject;
+    pub static mut PyExc_PermissionError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ProcessLookupError"]
-    pub static mut PyPyExc_ProcessLookupError: *mut PyObject;
+    pub static mut PyExc_ProcessLookupError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_RecursionError"]
-    pub static mut PyPyExc_RecursionError: *mut PyObject;
+    pub static mut PyExc_RecursionError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ReferenceError"]
-    pub static mut PyPyExc_ReferenceError: *mut PyObject;
+    pub static mut PyExc_ReferenceError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ResourceWarning"]
-    pub static mut PyPyExc_ResourceWarning: *mut PyObject;
+    pub static mut PyExc_ResourceWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_RuntimeError"]
-    pub static mut PyPyExc_RuntimeError: *mut PyObject;
+    pub static mut PyExc_RuntimeError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_RuntimeWarning"]
-    pub static mut PyPyExc_RuntimeWarning: *mut PyObject;
+    pub static mut PyExc_RuntimeWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_StopAsyncIteration"]
-    pub static mut PyPyExc_StopAsyncIteration: *mut PyObject;
+    pub static mut PyExc_StopAsyncIteration: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_StopIteration"]
-    pub static mut PyPyExc_StopIteration: *mut PyObject;
+    pub static mut PyExc_StopIteration: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_SyntaxError"]
-    pub static mut PyPyExc_SyntaxError: *mut PyObject;
+    pub static mut PyExc_SyntaxError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_SyntaxWarning"]
-    pub static mut PyPyExc_SyntaxWarning: *mut PyObject;
+    pub static mut PyExc_SyntaxWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_SystemError"]
-    pub static mut PyPyExc_SystemError: *mut PyObject;
+    pub static mut PyExc_SystemError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_SystemExit"]
-    pub static mut PyPyExc_SystemExit: *mut PyObject;
+    pub static mut PyExc_SystemExit: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_TabError"]
-    pub static mut PyPyExc_TabError: *mut PyObject;
+    pub static mut PyExc_TabError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_TimeoutError"]
-    pub static mut PyPyExc_TimeoutError: *mut PyObject;
+    pub static mut PyExc_TimeoutError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_TypeError"]
-    pub static mut PyPyExc_TypeError: *mut PyObject;
+    pub static mut PyExc_TypeError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_UnboundLocalError"]
-    pub static mut PyPyExc_UnboundLocalError: *mut PyObject;
+    pub static mut PyExc_UnboundLocalError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_UnicodeDecodeError"]
-    pub static mut PyPyExc_UnicodeDecodeError: *mut PyObject;
+    pub static mut PyExc_UnicodeDecodeError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_UnicodeEncodeError"]
-    pub static mut PyPyExc_UnicodeEncodeError: *mut PyObject;
+    pub static mut PyExc_UnicodeEncodeError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_UnicodeError"]
-    pub static mut PyPyExc_UnicodeError: *mut PyObject;
+    pub static mut PyExc_UnicodeError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_UnicodeTranslateError"]
-    pub static mut PyPyExc_UnicodeTranslateError: *mut PyObject;
+    pub static mut PyExc_UnicodeTranslateError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_UnicodeWarning"]
-    pub static mut PyPyExc_UnicodeWarning: *mut PyObject;
+    pub static mut PyExc_UnicodeWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_UserWarning"]
-    pub static mut PyPyExc_UserWarning: *mut PyObject;
+    pub static mut PyExc_UserWarning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ValueError"]
-    pub static mut PyPyExc_ValueError: *mut PyObject;
+    pub static mut PyExc_ValueError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_Warning"]
-    pub static mut PyPyExc_Warning: *mut PyObject;
+    pub static mut PyExc_Warning: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyExc_ZeroDivisionError"]
-    pub static mut PyPyExc_ZeroDivisionError: *mut PyObject;
+    pub static mut PyExc_ZeroDivisionError: *mut PyObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyType_Type"]
-    pub static mut PyPyType_Type: PyTypeObject;
+    pub static mut PyType_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBytes_Type"]
-    pub static mut PyPyBytes_Type: PyTypeObject;
+    pub static mut PyBytes_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyUnicode_Type"]
-    pub static mut PyPyUnicode_Type: PyTypeObject;
+    pub static mut PyUnicode_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDict_Type"]
-    pub static mut PyPyDict_Type: PyTypeObject;
+    pub static mut PyDict_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyDictProxy_Type"]
-    pub static mut PyPyDictProxy_Type: PyTypeObject;
+    pub static mut PyDictProxy_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyTuple_Type"]
-    pub static mut PyPyTuple_Type: PyTypeObject;
+    pub static mut PyTuple_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyList_Type"]
-    pub static mut PyPyList_Type: PyTypeObject;
+    pub static mut PyList_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySet_Type"]
-    pub static mut PyPySet_Type: PyTypeObject;
+    pub static mut PySet_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFrozenSet_Type"]
-    pub static mut PyPyFrozenSet_Type: PyTypeObject;
+    pub static mut PyFrozenSet_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBool_Type"]
-    pub static mut PyPyBool_Type: PyTypeObject;
+    pub static mut PyBool_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyFloat_Type"]
-    pub static mut PyPyFloat_Type: PyTypeObject;
+    pub static mut PyFloat_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyLong_Type"]
-    pub static mut PyPyLong_Type: PyTypeObject;
+    pub static mut PyLong_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyComplex_Type"]
-    pub static mut PyPyComplex_Type: PyTypeObject;
+    pub static mut PyComplex_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyByteArray_Type"]
-    pub static mut PyPyByteArray_Type: PyTypeObject;
+    pub static mut PyByteArray_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMemoryView_Type"]
-    pub static mut PyPyMemoryView_Type: PyTypeObject;
+    pub static mut PyMemoryView_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyBaseObject_Type"]
-    pub static mut PyPyBaseObject_Type: PyTypeObject;
+    pub static mut PyBaseObject_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNone_Type"]
-    pub static mut PyPyNone_Type: PyTypeObject;
+    pub static mut PyNone_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyNotImplemented_Type"]
-    pub static mut PyPyNotImplemented_Type: PyTypeObject;
+    pub static mut PyNotImplemented_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCell_Type"]
-    pub static mut PyPyCell_Type: PyTypeObject;
+    pub static mut PyCell_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyModule_Type"]
-    pub static mut PyPyModule_Type: PyTypeObject;
+    pub static mut PyModule_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyProperty_Type"]
-    pub static mut PyPyProperty_Type: PyTypeObject;
+    pub static mut PyProperty_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPySlice_Type"]
-    pub static mut PyPySlice_Type: PyTypeObject;
+    pub static mut PySlice_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyStaticMethod_Type"]
-    pub static mut PyPyStaticMethod_Type: PyTypeObject;
+    pub static mut PyStaticMethod_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyCFunction_Type"]
-    pub static mut PyPyCFunction_Type: PyTypeObject;
+    pub static mut PyCFunction_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyClassMethodDescr_Type"]
-    pub static mut PyPyClassMethodDescr_Type: PyTypeObject;
+    pub static mut PyClassMethodDescr_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyGetSetDescr_Type"]
-    pub static mut PyPyGetSetDescr_Type: PyTypeObject;
+    pub static mut PyGetSetDescr_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMemberDescr_Type"]
-    pub static mut PyPyMemberDescr_Type: PyTypeObject;
+    pub static mut PyMemberDescr_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyMethodDescr_Type"]
-    pub static mut PyPyMethodDescr_Type: PyTypeObject;
+    pub static mut PyMethodDescr_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyWrapperDescr_Type"]
-    pub static mut PyPyWrapperDescr_Type: PyTypeObject;
+    pub static mut PyWrapperDescr_Type: PyTypeObject;
 }
 extern "C" {
     #[link_name = "\u{1}_PyPyInstanceMethod_Type"]
-    pub static mut PyPyInstanceMethod_Type: PyTypeObject;
+    pub static mut PyInstanceMethod_Type: PyTypeObject;
 }
 pub type __builtin_va_list = [__va_list_tag; 1usize];
 #[repr(C)]

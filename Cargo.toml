@@ -4,5 +4,5 @@ version = "0.1.0"
 authors = ["Omer Ben-Amram <omerbenamram@gmail.com>"]
 build = "build.rs"
 
-
-[dependencies]
+[build-dependencies]
+bindgen = "0.26.3"
